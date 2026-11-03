@@ -32,7 +32,7 @@ One disposable Linux host contains two Gateway/DB containers and four network na
 
 Complete [onboarding](identity.md). Create a support subnet binding scoped to this exact inference service; do not include the management port. `forward_identity` requires explicit services. The resolver uses actual socket peer/ingress, not a client's asserted X-Forwarded-For. NAT that hides all clients behind one peer needs another trustworthy identity signal.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Create the strict `support-subnet` binding**
 
 Write `networks-config-1.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response.
 
@@ -63,7 +63,7 @@ status=$(ip netns exec share-a curl -sS --max-time 10 -X POST \
   -w '%{http_code}' "$API/config/ai/netidentity")
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Verify the binding and list netidentity bindings**
 
 Require HTTP 200 for the saved management response before continuing. Send the displayed management request to `/config/ai/netidentity` and retain its response. Write `subnet-support.request.json` with the displayed editable JSON input.
 
@@ -143,7 +143,7 @@ fi
 test "$(cat "$LAB/subnet-mismatch.http")" = 403
 ```
 
-**Step 5 — Apply or read back the displayed management policy**
+**Step 5 — Confirm no `subnet-mismatch` receipt; switch to advisory**
 
 Read `subnet-mismatch` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `subnet-mismatch`. Write `networks-config-3.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response.
 
@@ -203,7 +203,7 @@ ip netns exec share-a curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/advisory-key-wins.http"
 ```
 
-**Step 7 — Check independent backend delivery**
+**Step 7 — Confirm `advisory-key-wins` arrived as research at standard**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `advisory-key-wins`. Read `advisory-key-wins` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `advisory-key-wins`. Write `networks-config-4.request.json` with the displayed editable JSON input.
 
@@ -234,7 +234,7 @@ cat > "$LAB/networks-config-4.request.json" <<'JSON'
 JSON
 ```
 
-**Step 8 — Apply or read back the displayed management policy**
+**Step 8 — Add the research `support-host` /32 binding**
 
 Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 200 for the saved management response before continuing. Write `longest-prefix.request.json` with the displayed editable JSON input.
 
@@ -281,7 +281,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
 jq -e '.count == 1' "$LAB/longest-prefix.receipt.json"
 ```
 
-**Step 10 — Apply or read back the displayed management policy**
+**Step 10 — Reject the equal-prefix `conflicting-host` binding with 409**
 
 Write `networks-config-5.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 409 for the saved management response before continuing.
 
@@ -339,7 +339,7 @@ fi
 test "$(cat "$LAB/after-conflict.http")" = 200
 ```
 
-**Step 12 — Apply or read back the displayed management policy**
+**Step 12 — Confirm `after-conflict` delivery and delete both bindings**
 
 Read `after-conflict` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `after-conflict`. Send the displayed management request to `/config/ai/netidentity/support-host` and retain its response. Require HTTP 200 for the saved management response before continuing. Send the displayed management request to `/config/ai/netidentity/support-subnet` and retain its response.
 
@@ -363,7 +363,7 @@ test "$status" = 200
 
 Strict mismatch is 403 with receipt 0. Advisory accepts the valid credential's tenant, but the matched binding still caps its class, including a key from another tenant. An omitted `priority_class` defaults to `standard`; the advisory example requests `interactive` with the research key and must arrive as standard. VLAN, VXLAN and recovery bindings below also omit the field and therefore impose a standard cap. Set it explicitly when customizing authority. Longest-prefix match selects the /32; an equal-specificity conflicting update must not displace it. Prefer exact, nonoverlapping departmental networks in deployment. CIDR-only network credentials and unsupported IPv6 bindings are rejected:
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Reject a CIDR-only network-credential binding**
 
 Write `networks-config-8.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 400 for the saved management response before continuing.
 
@@ -392,7 +392,7 @@ jq . "$LAB/networks-config-8.response.json"
 test "$status" = 400
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Reject the IPv6 `bad-v6` binding**
 
 Write `networks-config-9.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 400 for the saved management response before continuing.
 
@@ -421,7 +421,7 @@ test "$status" = 400
 
 Only use `credential:network` when access to the named ingress is controlled by your platform. It allows keyless requests matching that interface; it does not validate an arbitrary remote user. Interface binding wins over subnet matching. The block reinstates a research subnet binding while the support interface binding is present; the keyless request must still resolve to support. It removes the overlapping subnet before testing interface-binding deletion. A presented bad credential must still fail, and a valid different-tenant key must fail under strict enforcement.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Reinstate `support-subnet` as an overlapping research binding**
 
 Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -437,7 +437,7 @@ status=$(ip netns exec share-a curl -sS --max-time 10 -X POST \
 test "$status" = 200
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Create the `support-interface` network-credential binding**
 
 Write `networks-config-10.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -560,7 +560,7 @@ ip netns exec share-a curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/interface-wrong-tenant.http"
 ```
 
-**Step 6 — Check independent backend delivery**
+**Step 6 — Confirm `interface-wrong-tenant` got 403 with no receipt**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 403 for `interface-wrong-tenant`. Read `interface-wrong-tenant` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `interface-wrong-tenant`. Write `interface-capped.request.json` with the displayed editable JSON input.
 
@@ -640,7 +640,7 @@ fi
 test "$(cat "$LAB/forwarded-spoof.http")" = 200
 ```
 
-**Step 9 — Apply or read back the displayed management policy**
+**Step 9 — Confirm `forwarded-spoof` stayed support; delete both bindings**
 
 Read `forwarded-spoof` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `forwarded-spoof`. Send the displayed management request to `/config/ai/netidentity/support-subnet` and retain its response. Require HTTP 200 for the saved management response before continuing. Send the displayed management request to `/config/ai/netidentity/support-interface` and retain its response.
 
@@ -693,7 +693,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/receipt/interface-removed" -o "$LAB/interface-removed.receipt.json"
 ```
 
-**Step 11 — Assert the saved backend receipt count**
+**Step 11 — Confirm `interface-removed` has no backend receipt**
 
 Require backend receipt count 0 for `interface-removed`.
 
@@ -715,7 +715,7 @@ The new 100.64.11.0/24 addresses belong only to these two software VLAN interfac
 
 Create VLAN devices on both ends of the existing support veth. The Gateway alias name `vlan110` is intentional: the supported VLAN binding resolves the local software device to its current ifindex. Here `vlan110` is a Linux 802.1Q subinterface, not a bridge. The lab checks tagged traffic, actual link type/ifindex and resolution after recreation; it does not configure an external switch or prove physical fabric isolation.
 
-**Step 1 — Configure or inspect the named lab resource**
+**Step 1 — Create VLAN 110 devices on the Gateway and client**
 
 Run on the Linux host. The namespace/container name selects where the operation takes effect; confirm it belongs to this lab before adapting addresses or deleting anything.
 
@@ -732,7 +732,7 @@ ip netns exec share-a ip link set client110 up
 ip netns exec share-a ip route replace 192.0.2.254/32 via 100.64.11.254
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Create the `support-vlan` VLAN 110 binding**
 
 Write `networks-config-12.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -824,9 +824,9 @@ if test -f "$LAB/vlan-wrong-key.pid"; then
 fi
 ```
 
-**Step 5 — Check independent backend delivery**
+**Step 5 — Confirm `vlan-wrong-key` denial and recreate `vlan110`**
 
-Require saved HTTP 403 for `vlan-wrong-key`. Read `vlan-wrong-key` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `vlan-wrong-key`.
+Require saved HTTP 403 for `vlan-wrong-key` and backend receipt count 0, read directly from the backend. Then delete and recreate `vlan110` on the Gateway and require a new interface index, so the next step tests the binding against a recreated device.
 
 ```bash
 test "$(cat "$LAB/vlan-wrong-key.http")" = 403
@@ -875,7 +875,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/receipt/vlan-recreated" -o "$LAB/vlan-recreated.receipt.json"
 ```
 
-**Step 7 — Apply or read back the displayed management policy**
+**Step 7 — Confirm `vlan-recreated` delivery and delete `support-vlan`**
 
 Require backend receipt count 1 for `vlan-recreated`. Send the displayed management request to `/config/ai/netidentity/support-vlan` and retain its response. Require HTTP 200 for the saved management response before continuing. Write `vlan-no-binding.request.json` with the displayed editable JSON input.
 
@@ -941,7 +941,7 @@ The overlay uses 100.64.22.0/24; the existing research veth network is its under
 
 Create a VNI 221 overlay over the research underlay, then interrupt only the Gateway's overlay device. Key-based support traffic must remain healthy. Match `vni` resolves the Gateway-local `vxlan221` device; this is node-local configuration, so configure and verify each serving node separately.
 
-**Step 1 — Configure or inspect the named lab resource**
+**Step 1 — Create the VNI 221 VXLAN devices**
 
 Run on the Linux host. The namespace/container name selects where the operation takes effect; confirm it belongs to this lab before adapting addresses or deleting anything.
 
@@ -958,7 +958,7 @@ ip netns exec share-b ip link set client221 up
 ip netns exec share-b ip route replace 192.0.2.254/32 via 100.64.22.254
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Create the `research-overlay` VNI 221 binding**
 
 Write `networks-config-14.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -1050,9 +1050,9 @@ if test -f "$LAB/vxlan-wrong-key.pid"; then
 fi
 ```
 
-**Step 5 — Check independent backend delivery**
+**Step 5 — Confirm `vxlan-wrong-key` denial and take `vxlan221` down**
 
-Require saved HTTP 403 for `vxlan-wrong-key`. Read `vxlan-wrong-key` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `vxlan-wrong-key`. Write `overlay-other-path.request.json` with the displayed editable JSON input.
+Require saved HTTP 403 for `vxlan-wrong-key` and backend receipt count 0, read directly from the backend. Then take `vxlan221` down on the Gateway; the probe from `share-b` is expected to fail at the transport level, so its error is saved separately. Write `overlay-other-path.request.json` with the displayed editable JSON input.
 
 ```bash
 test "$(cat "$LAB/vxlan-wrong-key.http")" = 403
@@ -1079,7 +1079,7 @@ JSON
 
 **Step 6 — Send `overlay-other-path` and retain the response**
 
-Send `overlay-other-path` through the Gateway from the namespace shown below; retain its HTTP status and response separately. Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `overlay-other-path`. Read `overlay-other-path` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `overlay-other-path`.
+Send `overlay-other-path` through the Gateway from the namespace shown below while `vxlan221` is down; retain its HTTP status and response separately. Require saved HTTP 200 and backend receipt count 1, read directly from the backend. Finally bring `vxlan221` back up.
 
 ```bash
 ip netns exec share-a curl --http1.1 -sS --max-time 55 \
@@ -1131,7 +1131,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/receipt/vxlan-recovered" -o "$LAB/vxlan-recovered.receipt.json"
 ```
 
-**Step 8 — Apply or read back the displayed management policy**
+**Step 8 — Confirm `vxlan-recovered` delivery and delete `research-overlay`**
 
 Require backend receipt count 1 for `vxlan-recovered`. Send the displayed management request to `/config/ai/netidentity/research-overlay` and retain its response. Require HTTP 200 for the saved management response before continuing. Write `vxlan-no-binding.request.json` with the displayed editable JSON input.
 

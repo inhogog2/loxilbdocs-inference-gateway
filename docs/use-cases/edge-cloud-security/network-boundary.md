@@ -37,9 +37,9 @@ Firewall `protocol:6` means TCP; zero ports mean wildcard, so specify both ends 
 port range. `preference` participates in the rule identity and precedence;65010 precedes the generated
 shared-listener allow65000. Do not use duplicate POST as an update.
 
-**Step 1 — Prepare `request.json`**
+**Step 1 — Send a baseline from D, then add a firewall drop**
 
-Write the complete input before sending it. This step creates a local file; it does not apply policy. Change the displayed values here, then use this same file in the following request.
+Send a baseline request from source D and save its backend receipt. Then write `firewall-drop.json`, apply it to drop D (192.0.2.53) on port 8080, and read back the firewall rules. Change the source address to match your lab before running.
 
 ```bash
 docker exec -i uc7-d curl -sS --http1.1 --connect-timeout 2 --max-time 6 --config /run/edge-key.curl -H 'Content-Type: application/json' -H "X-Edge-Nonce: $RUN-fw-before" --data-binary @- -w '\nHTTP:%{http_code} VERSION:%{http_version}\n' "http://$VIP:8080/v1/completions" < "$LAB/request.json" > "$LAB/fw-before.txt" 2> "$LAB/fw-before.err"
@@ -68,7 +68,7 @@ jq . "$LAB/firewall-readback.json"
 docker exec -i uc7-d curl -sS --http1.1 --connect-timeout 2 --max-time 6 --config /run/edge-key.curl -H 'Content-Type: application/json' -H "X-Edge-Nonce: $RUN-fw-warmup" --data-binary @- -w '\nHTTP:%{http_code} VERSION:%{http_version}\n' "http://$VIP:8080/v1/completions" < "$LAB/request.json" > "$LAB/fw-warmup.txt" 2> "$LAB/fw-warmup.err"
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Verify the D drop and A delivery, then delete the rule**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -99,7 +99,7 @@ cat "$LAB/fw-recovered.txt"
 docker logs uc7-ep > "$LAB/journal.jsonl" 2>&1
 ```
 
-**Step 3 — Inspect the selected fields**
+**Step 3 — Confirm D's recovered request reached the backend**
 
 Read only the fields used by this experiment. Check the exact condition instead of inferring success from a printed JSON document; do not POST a readback envelope as a configuration request.
 
@@ -115,7 +115,7 @@ removed, then D: 200/receipt 1. A synthetic fence is not an ordinary public fire
 Source policy belongs to normalized VIP/port/protocol, not to an HTTP model name. Allow A/C/D,
 exclude B, and give both peer rules identical prefixes. Save the original writable plain rule.
 
-**Step 1 — Check the next precondition**
+**Step 1 — Save a copy of the plain model rule**
 
 Run these commands in order and stop if a check fails. Keep the original inputs and results available for diagnosis before making the next change.
 
@@ -163,7 +163,7 @@ cat > "$LAB/lb-allowed-sources.json" <<'JSON'
 JSON
 ```
 
-**Step 3 — Send the request and save the observation**
+**Step 3 — Apply the fenced rules and probe sources A and B**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 

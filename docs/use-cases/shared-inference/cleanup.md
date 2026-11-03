@@ -30,7 +30,7 @@ One disposable Linux host contains two Gateway/DB containers and four network na
 
 The final service still owns five API keys, two tenants and two objectives. First prove inflight0/queued0 and successful traffic for both departments. A public GET response is not a rollback payload; the original request files under LAB remain your editable inputs.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Wait for an idle queue and read network identities**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Send the displayed management request to `/config/ai/netidentity` and retain its response.
 
@@ -121,7 +121,7 @@ ip netns exec share-b curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/final-research.http"
 ```
 
-**Step 4 — Check independent backend delivery**
+**Step 4 — Confirm `final-research` HTTP 200 and backend receipt**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `final-research`. Read `final-research` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `final-research`.
 

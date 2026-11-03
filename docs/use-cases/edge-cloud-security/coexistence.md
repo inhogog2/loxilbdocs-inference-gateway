@@ -96,7 +96,7 @@ cat > "$LAB/lb-coexistence.json" <<'JSON'
 JSON
 ```
 
-**Step 2 — Start the named client request**
+**Step 2 — Apply the KV rule, start the publisher and send baselines**
 
 Run this in the same Bash session. A trailing & keeps the client active while the following steps inspect contention; its PID must remain a child of this shell for the later wait.
 
@@ -127,7 +127,7 @@ docker exec uc7-gw curl -fsS --max-time 20 --config /etc/loxilb/control.curl "$A
 python3 "$INPUTS/metric-delta.py" "$LAB/kv-before.prom" "$LAB/kv-after.prom" loxilb_pd_kv_tier15_hits_total
 ```
 
-**Step 3 — Send the request and save the observation**
+**Step 3 — Read back the effective KV binding status**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -213,7 +213,7 @@ baseline established its series. Save the before snapshot, stimulate B/D again, 
 connections while A submits one normal request. C's failed requests are retained, not removed from
 the denominator. This is a short controlled experiment, not a sustained tenant SLA.
 
-**Step 1 — Check completion and delivery**
+**Step 1 — Probe B and D, then flood from C while A sends**
 
 Wait for the relevant client and check its saved HTTP code. Fetch receipts directly from the backend namespace: accepted traffic and policy denials have different expected counts.
 
@@ -244,7 +244,7 @@ printf 'FLOOD_EXIT=%s\n' "$?"
 sleep 2
 ```
 
-**Step 2 — Check completion and delivery**
+**Step 2 — Send two key-limited requests and compare counter deltas**
 
 Wait for the relevant client and check its saved HTTP code. Fetch receipts directly from the backend namespace: accepted traffic and policy denials have different expected counts.
 

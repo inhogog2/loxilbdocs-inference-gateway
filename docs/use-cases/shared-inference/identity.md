@@ -30,7 +30,7 @@ One disposable Linux host contains two Gateway/DB containers and four network na
 
 After [setup](setup.md), create the two named objectives below, then configure each tenant and issue its keys through the REST API. Batch keys carry a sheddable cap. The high synthetic RPS limit prevents this exercise from measuring quota exhaustion instead of scheduling.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Create the `interactive` objective**
 
 Write `identity-config-1.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/objective` and retain its response. Require HTTP 200 for the saved management response before continuing. Write `identity-config-2.request.json` with the displayed editable JSON input.
 
@@ -59,7 +59,7 @@ cat > "$LAB/identity-config-2.request.json" <<'JSON'
 JSON
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Create the `batch` objective**
 
 Send the displayed management request to `/config/ai/objective` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -319,7 +319,7 @@ cat > "$LAB/base-rule.json" <<'JSON'
 JSON
 ```
 
-**Step 3 — Apply or read back the displayed management policy**
+**Step 3 — Apply `base-rule.json` and list all service rules**
 
 Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 200 for the saved management response before continuing. Send the displayed management request to `/config/loadbalancer/all` and retain its response.
 
@@ -399,7 +399,7 @@ ip netns exec share-b curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/research-baseline.http"
 ```
 
-**Step 6 — Check independent backend delivery**
+**Step 6 — Confirm `research-baseline` reached the backend**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `research-baseline`. Read `research-baseline` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `research-baseline`. Write `support-interactive.request.json` with the displayed editable JSON input.
 
@@ -478,7 +478,7 @@ fi
 test "$(cat "$LAB/support-batch.http")" = 200
 ```
 
-**Step 9 — Check independent backend delivery**
+**Step 9 — Confirm `support-batch` arrived as sheddable**
 
 Read `support-batch` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `support-batch`.
 
@@ -558,7 +558,7 @@ ip netns exec share-a curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/bad-key.http"
 ```
 
-**Step 3 — Check independent backend delivery**
+**Step 3 — Confirm `bad-key` got 401 with no receipt**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 401 for `bad-key`. Read `bad-key` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `bad-key`. Write `unknown-objective.request.json` with the displayed editable JSON input.
 
@@ -661,7 +661,7 @@ if test -f "$LAB/forged-fairness.pid"; then
 fi
 ```
 
-**Step 7 — Check independent backend delivery**
+**Step 7 — Confirm `forged-fairness` stayed attributed to support**
 
 Require saved HTTP 200 for `forged-fairness`. Read `forged-fairness` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `forged-fairness`.
 
@@ -675,7 +675,7 @@ jq -e '((.["headers"]["x-llm-d-inference-fairness-id"] == "support"))' "$LAB/for
 
 Change only the hint-enforcement mode. In non-strict mode an unknown hint falls back to the authorized default; it does not acquire critical authority. This switch is distinct from a network binding's strict/advisory tenant-mismatch policy.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Turn off strict objective-hint enforcement**
 
 Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -727,9 +727,9 @@ fi
 test "$(cat "$LAB/fallback-hint.http")" = 200
 ```
 
-**Step 3 — Apply or read back the displayed management policy**
+**Step 3 — Confirm `fallback-hint` arrived as standard; restore strict mode**
 
-Read `fallback-hint` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `fallback-hint`. Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 200 for the saved management response before continuing.
+Read `fallback-hint` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 and the `standard` objective header. Then restore strict objective enforcement (`ai_objective_strict: true`, `fc_max_queue_depth: 31`) through `/config/loadbalancer` and require HTTP 200.
 
 ```bash
 ip netns exec share-backend curl -fsS --max-time 3 \
@@ -783,7 +783,7 @@ jq -e '(.body | has("service_tier")) and .body.service_tier == null' "$LAB/lower
 jq -e '((.["headers"]["x-llm-d-inference-objective"] == "sheddable"))' "$LAB/lower-to-flex.receipt.json"
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Remove research raise grants and send `same-band-raise`**
 
 Write `identity-config-11.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/tenant/ratelimit` and retain its response. Require HTTP 204 for the saved management response before continuing. Write `same-band-raise.request.json` with the displayed editable JSON input. Send `same-band-raise` through the Gateway from the namespace shown below; retain its HTTP status and response separately.
 
@@ -814,7 +814,7 @@ ip netns exec share-a curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/same-band-raise.http"
 ```
 
-**Step 3 — Apply or read back the displayed management policy**
+**Step 3 — Confirm `same-band-raise` is denied; grant `tier:flex`**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 403 for `same-band-raise`. Read `same-band-raise` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `same-band-raise`. Write `identity-config-12.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/tenant/ratelimit` and retain its response. Require HTTP 204 for the saved management response before continuing.
 
@@ -869,7 +869,7 @@ jq -e '.count == 1' "$LAB/granted-flex.receipt.json"
 jq -e '(.body | has("service_tier")) and .body.service_tier == null' "$LAB/granted-flex.receipt.json"
 ```
 
-**Step 5 — Apply or read back the displayed management policy**
+**Step 5 — Allow research to request `interactive` and `batch`**
 
 Write `identity-config-13.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/tenant/ratelimit` and retain its response. Require HTTP 204 for the saved management response before continuing. Write `header-precedence.request.json` with the displayed editable JSON input.
 

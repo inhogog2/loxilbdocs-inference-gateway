@@ -32,7 +32,7 @@ One disposable Linux host contains two Gateway/DB containers and four network na
 
 Complete [dispatch](scheduling.md). At ceiling 4 with a 25% sheddable floor, standard requests from support and research can occupy all four units while batch is idle. Once batch and critical are both waiting, releasing a standard permit gives the below-floor batch band a turn. Existing work remains running.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Set ceiling 4 with a 25% sheddable floor**
 
 Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -55,7 +55,7 @@ jq . "$LAB/capacity-rule-1.response.json"
 test "$status" = 200
 ```
 
-**Step 2 — Send `floor-1` and retain the response**
+**Step 2 — Start the held `floor-1` support request**
 
 Write `floor-1.request.json` with the displayed editable JSON input. Send `floor-1` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps.
 
@@ -84,7 +84,7 @@ printf '%s\n' "$!" > "$LAB/floor-1.pid"
 arrived=false
 ```
 
-**Step 3 — Check independent backend delivery**
+**Step 3 — Confirm the backend received `floor-1`**
 
 Read `floor-1` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-1`. Write `floor-2.request.json` with the displayed editable JSON input.
 
@@ -113,7 +113,7 @@ cat > "$LAB/floor-2.request.json" <<'JSON'
 JSON
 ```
 
-**Step 4 — Send `floor-2` and retain the response**
+**Step 4 — Start `floor-2` and confirm its receipt**
 
 Send `floor-2` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps. Read `floor-2` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-2`.
 
@@ -140,7 +140,7 @@ done
 test "$arrived" = true
 ```
 
-**Step 5 — Send `floor-3` and retain the response**
+**Step 5 — Start the held `floor-3` research request**
 
 Write `floor-3.request.json` with the displayed editable JSON input. Send `floor-3` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps.
 
@@ -169,7 +169,7 @@ printf '%s\n' "$!" > "$LAB/floor-3.pid"
 arrived=false
 ```
 
-**Step 6 — Check independent backend delivery**
+**Step 6 — Confirm the backend received `floor-3`**
 
 Read `floor-3` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-3`. Write `floor-4.request.json` with the displayed editable JSON input.
 
@@ -198,7 +198,7 @@ cat > "$LAB/floor-4.request.json" <<'JSON'
 JSON
 ```
 
-**Step 7 — Send `floor-4` and retain the response**
+**Step 7 — Start `floor-4` and confirm its receipt**
 
 Send `floor-4` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps. Read `floor-4` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-4`.
 
@@ -226,7 +226,7 @@ test "$arrived" = true
 reached=false
 ```
 
-**Step 8 — Apply or read back the displayed management policy**
+**Step 8 — Confirm all four permits are in use**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state.
 
@@ -248,7 +248,7 @@ jq --argjson port "$PORT" \
   "$LAB/capacity-state-3.json"
 ```
 
-**Step 9 — Send `floor-batch` and retain the response**
+**Step 9 — Queue `floor-batch` as a sheddable request**
 
 Write `floor-batch.request.json` with the displayed editable JSON input. Send `floor-batch` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps.
 
@@ -276,7 +276,7 @@ ip netns exec share-a curl --http1.1 -sS --max-time 55 \
 printf '%s\n' "$!" > "$LAB/floor-batch.pid"
 ```
 
-**Step 10 — Send `floor-critical` and retain the response**
+**Step 10 — Queue `floor-critical` as an interactive request**
 
 Write `floor-critical.request.json` with the displayed editable JSON input. Send `floor-critical` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps.
 
@@ -306,7 +306,7 @@ printf '%s\n' "$!" > "$LAB/floor-critical.pid"
 reached=false
 ```
 
-**Step 11 — Apply or read back the displayed management policy**
+**Step 11 — Wait for two waiters, then release `floor-1`**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Release the held backend request `floor-1` so its capacity can return to the Gateway.
 
@@ -331,7 +331,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
 arrived=false
 ```
 
-**Step 12 — Apply or read back the displayed management policy**
+**Step 12 — Confirm `floor-batch` takes the freed permit**
 
 Read `floor-batch` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-batch`. Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state.
 
@@ -361,7 +361,7 @@ done
 test "$reached" = true
 ```
 
-**Step 13 — Release held requests and check delivery**
+**Step 13 — Release `floor-2` and confirm `floor-critical` dispatch**
 
 Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Read `floor-critical` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `floor-critical`. Release the held backend request `floor-2` so its capacity can return to the Gateway. Require backend receipt count 1 for `floor-critical`. Release the held backend request `floor-3` so its capacity can return to the Gateway. Release the held backend request `floor-4` so its capacity can return to the Gateway.
 
@@ -391,7 +391,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/release/floor-4" | jq .
 ```
 
-**Step 14 — Release held requests and check delivery**
+**Step 14 — Release `floor-batch` and `floor-critical`, then check results**
 
 Release the held backend request `floor-batch` so its capacity can return to the Gateway. Release the held backend request `floor-critical` so its capacity can return to the Gateway. Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `floor-1`. Read `floor-1` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-1`. Require saved HTTP 200 for `floor-2`. Read `floor-2` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-2`. Require saved HTTP 200 for `floor-3`. Read `floor-3` directly from the backend receipt endpoint; this observation bypasses the Gateway.
 
@@ -422,7 +422,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/receipt/floor-3" -o "$LAB/floor-3.receipt.json"
 ```
 
-**Step 15 — Check independent backend delivery**
+**Step 15 — Verify `floor-4`, `floor-batch` and `floor-critical` results**
 
 Require backend receipt count 1 for `floor-3`. Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `floor-4`. Read `floor-4` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-4`. Require saved HTTP 200 for `floor-batch`. Read `floor-batch` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-batch`. Require saved HTTP 200 for `floor-critical`. Read `floor-critical` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `floor-critical`.
 
@@ -452,7 +452,7 @@ jq -e '.count == 1' "$LAB/floor-critical.receipt.json"
 reached=false
 ```
 
-**Step 16 — Apply or read back the displayed management policy**
+**Step 16 — Wait for the pool to return to idle**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state.
 
@@ -480,7 +480,7 @@ Expected: all four standard holders enter; waiting sheddable enters on the first
 
 Reserve 25% at ceiling 4 with floors reset. Three standard holders enter, the fourth waits despite one idle unit, and a critical request can use it. This is the intentional throughput/headroom tradeoff.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Set ceiling 4 with a 25% critical reserve**
 
 Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -502,7 +502,7 @@ jq . "$LAB/capacity-rule-7.response.json"
 test "$status" = 200
 ```
 
-**Step 2 — Send `reserve-1` and retain the response**
+**Step 2 — Start the held `reserve-1` request**
 
 Write `reserve-1.request.json` with the displayed editable JSON input. Send `reserve-1` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps.
 
@@ -531,7 +531,7 @@ printf '%s\n' "$!" > "$LAB/reserve-1.pid"
 arrived=false
 ```
 
-**Step 3 — Check independent backend delivery**
+**Step 3 — Confirm the backend received `reserve-1`**
 
 Read `reserve-1` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-1`. Write `reserve-2.request.json` with the displayed editable JSON input.
 
@@ -560,7 +560,7 @@ cat > "$LAB/reserve-2.request.json" <<'JSON'
 JSON
 ```
 
-**Step 4 — Send `reserve-2` and retain the response**
+**Step 4 — Start `reserve-2` and confirm its receipt**
 
 Send `reserve-2` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps. Read `reserve-2` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-2`.
 
@@ -587,7 +587,7 @@ done
 test "$arrived" = true
 ```
 
-**Step 5 — Send `reserve-3` and retain the response**
+**Step 5 — Start the held `reserve-3` request**
 
 Write `reserve-3.request.json` with the displayed editable JSON input. Send `reserve-3` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps.
 
@@ -616,7 +616,7 @@ printf '%s\n' "$!" > "$LAB/reserve-3.pid"
 arrived=false
 ```
 
-**Step 6 — Check independent backend delivery**
+**Step 6 — Confirm the backend received `reserve-3`**
 
 Read `reserve-3` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-3`. Write `reserve-4.request.json` with the displayed editable JSON input.
 
@@ -645,7 +645,7 @@ cat > "$LAB/reserve-4.request.json" <<'JSON'
 JSON
 ```
 
-**Step 7 — Apply or read back the displayed management policy**
+**Step 7 — Send `reserve-4` and confirm it waits**
 
 Send `reserve-4` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps. Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state.
 
@@ -674,7 +674,7 @@ done
 test "$reached" = true
 ```
 
-**Step 8 — Check independent backend delivery**
+**Step 8 — Confirm `reserve-4` has not reached the backend**
 
 Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Read `reserve-4` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `reserve-4`. Write `reserve-urgent.request.json` with the displayed editable JSON input.
 
@@ -699,7 +699,7 @@ cat > "$LAB/reserve-urgent.request.json" <<'JSON'
 JSON
 ```
 
-**Step 9 — Send `reserve-urgent` and retain the response**
+**Step 9 — Send `reserve-urgent` into the reserved unit**
 
 Send `reserve-urgent` through the Gateway from the namespace shown below; retain its HTTP status and response separately. This client runs in the background; keep the same Bash session for the later release and wait steps. Read `reserve-urgent` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-urgent`.
 
@@ -728,7 +728,7 @@ test "$arrived" = true
 reached=false
 ```
 
-**Step 10 — Apply or read back the displayed management policy**
+**Step 10 — Confirm full use, then release `reserve-urgent`**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Release the held backend request `reserve-urgent` so its capacity can return to the Gateway. Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `reserve-urgent`. Read `reserve-urgent` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-urgent`.
 
@@ -759,7 +759,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
 jq -e '.count == 1' "$LAB/reserve-urgent.receipt.json"
 ```
 
-**Step 11 — Apply or read back the displayed management policy**
+**Step 11 — Confirm three running and one waiting, then release `reserve-1`**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Release the held backend request `reserve-1` so its capacity can return to the Gateway.
 
@@ -785,7 +785,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
 arrived=false
 ```
 
-**Step 12 — Release held requests and check delivery**
+**Step 12 — Confirm `reserve-4` dispatches and release the holds**
 
 Read `reserve-4` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-4`. Release the held backend request `reserve-2` so its capacity can return to the Gateway. Release the held backend request `reserve-3` so its capacity can return to the Gateway. Release the held backend request `reserve-4` so its capacity can return to the Gateway. Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `reserve-1`. Read `reserve-1` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-1`.
 
@@ -815,7 +815,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
 jq -e '.count == 1' "$LAB/reserve-1.receipt.json"
 ```
 
-**Step 13 — Check independent backend delivery**
+**Step 13 — Verify `reserve-2` through `reserve-4` results**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `reserve-2`. Read `reserve-2` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-2`. Require saved HTTP 200 for `reserve-3`. Read `reserve-3` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-3`. Require saved HTTP 200 for `reserve-4`. Read `reserve-4` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-4`.
 
@@ -844,7 +844,7 @@ jq -e '.count == 1' "$LAB/reserve-4.receipt.json"
 reached=false
 ```
 
-**Step 14 — Apply or read back the displayed management policy**
+**Step 14 — Wait for idle, then submit an invalid reserve rule**
 
 Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state. Send the displayed management request to `/config/loadbalancer` and retain its response.
 
@@ -875,7 +875,7 @@ status=$(ip netns exec share-a curl -sS --max-time 10 -X POST \
   -w '%{http_code}' "$API/config/loadbalancer")
 ```
 
-**Step 15 — Send `reserve-invalid-preserves` and retain the response**
+**Step 15 — Confirm HTTP 400 and send `reserve-invalid-preserves`**
 
 Require HTTP 400 for the saved management response before continuing. Write `reserve-invalid-preserves.request.json` with the displayed editable JSON input. Send `reserve-invalid-preserves` through the Gateway from the namespace shown below; retain its HTTP status and response separately.
 
@@ -904,7 +904,7 @@ ip netns exec share-a curl --http1.1 -sS --max-time 55 \
   -w '%{http_code}\n' "$INFER" > "$LAB/reserve-invalid-preserves.http"
 ```
 
-**Step 16 — Check independent backend delivery**
+**Step 16 — Confirm `reserve-invalid-preserves` succeeded**
 
 Wait for the saved client PID in this same parent Bash before checking its final response. Require saved HTTP 200 for `reserve-invalid-preserves`. Read `reserve-invalid-preserves` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `reserve-invalid-preserves`.
 

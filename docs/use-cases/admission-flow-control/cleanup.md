@@ -47,7 +47,7 @@ sudo ip netns exec l3h1 curl -sS "$API/config/loadbalancer/all" | \
   jq '[.lbAttr[] | select(.serviceArguments.port>=2210 and .serviceArguments.port<=2243)]'
 ```
 
-**Step 1 — Send the request and save the observation**
+**Step 1 — Delete the lab rules on ports 2211–2231**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -78,7 +78,7 @@ sudo ip netns exec l3h1 curl -sS -i -X DELETE \
   "$API/config/loadbalancer/hosturl/$VIP/externalipaddress/$VIP/port/2231/protocol/tcp?path_prefix=/&path_match_mode=prefix&model_name=llama-70b"
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Delete ports 2232–2243 and confirm no lab rules remain**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 

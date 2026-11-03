@@ -93,7 +93,7 @@ sudo ip netns exec l3h1 curl -sS -i "$API/config/ai/user/ratelimit/$(jq -r .tena
 sudo ip netns exec l3h1 curl -sS -i -X DELETE "$API/config/ai/user/ratelimit/tenant-qf/$F2_SUB"
 ```
 
-**Step 1 — Send the request and save the observation**
+**Step 1 — Revoke store access and probe each rung during the fault**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -124,7 +124,7 @@ docker exec "$PG_NAME" psql -U "$PG_OWNER" -d "$PG_DB" -Atc \
   'GRANT USAGE ON SCHEMA aigw TO aigwuser'
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Confirm 2066 recovery after GRANT and delete the f1 row**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 

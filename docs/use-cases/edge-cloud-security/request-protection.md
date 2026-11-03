@@ -214,7 +214,7 @@ Clear tenant RPS first so that an RPS429 cannot explain a pool-share rejection. 
 uses pool capacity4/share50; two held edge-team requests occupy its2-unit share. H2 requests refuse
 instead of entering the H1 queue. The control tenant must still be able to execute.
 
-**Step 1 — Start the named client request**
+**Step 1 — Clear tenant RPS and start the H2 hold backend**
 
 Run this in the same Bash session. A trailing & keeps the client active while the following steps inspect contention; its PID must remain a child of this shell for the later wait.
 
@@ -262,7 +262,7 @@ cat > "$LAB/fairness-rule.json" <<'JSON'
 JSON
 ```
 
-**Step 3 — Check completion and delivery**
+**Step 3 — Hold two requests, then test same-tenant and control access**
 
 Wait for the relevant client and check its saved HTTP code. Fetch receipts directly from the backend namespace: accepted traffic and policy denials have different expected counts.
 
@@ -293,7 +293,7 @@ docker exec uc7-gw curl -fsS --config /etc/loxilb/control.curl "$API/config/load
 jq -e '.lbAttr[] | select(.serviceArguments.port==8088) | .serviceArguments.fc_effective | select(.inflight==0)' "$LAB/fairness-released.json"
 ```
 
-**Step 4 — Check completion and delivery**
+**Step 4 — Delete the 8088 rule and stop the hold backend**
 
 Wait for the relevant client and check its saved HTTP code. Fetch receipts directly from the backend namespace: accepted traffic and policy denials have different expected counts.
 
@@ -318,9 +318,9 @@ tenant DELETE endpoint; keep any pre-existing model rows in a customized deploym
 extra lab keys and use their same saved credential files to require401/receipt 0 after cache refresh.
 Then restore the baseline key in C/D for the next chapter.
 
-**Step 1 — Prepare `tenant-unlimited.json`**
+**Step 1 — Restore unlimited tenant quotas and revoke the extra keys**
 
-Write the complete input before sending it. This step creates a local file; it does not apply policy. Change the displayed values here, then use this same file in the following request.
+Write `tenant-unlimited.json` and apply it to remove the `edge-team` rate limits, then read back the tenant. Delete the second and control API keys, and send one request with each key to confirm that the backend received neither.
 
 ```bash
 cat > "$LAB/tenant-unlimited.json" <<'JSON'
@@ -349,7 +349,7 @@ docker logs uc7-ep > "$LAB/journal.jsonl" 2>&1
 jq -s --arg nonce "$RUN-control-key-revoked" '[.[] | select(.event=="uc7_receipt" and .nonce==$nonce)] | {count:length,credentials_absent:all(.key_present==false),protocols:map(.proto)}' "$LAB/journal.jsonl"
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Restore the baseline key and confirm recovery from A**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 

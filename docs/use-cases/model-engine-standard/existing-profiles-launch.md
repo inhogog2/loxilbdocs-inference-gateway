@@ -54,7 +54,7 @@ The examples assume directly reachable Linux host networking on each worker. Pre
 
 On **each participating machine**, use a new working directory outside any existing extraction. Save the [archive](../../assets/existing-profiles-evaluation.tgz) and [checksum](../../assets/existing-profiles-evaluation.tgz.sha256) there. The following uses a dedicated directory under your home; choose another path consistently if needed. Do not download models or write run outputs inside the immutable package. A Git clone or GitHub source ZIP omits raw results and token probes; use the evaluation archive for every launch and result-verification step. Before this documentation revision is deployed, use the archive/checksum links in the PR Files view instead of the not-yet-published Pages URLs.
 
-**Step 1 — Send the request and save the observation**
+**Step 1 — Download and verify the package, then select a profile**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -85,7 +85,7 @@ export WORKER_B=192.0.2.22
 export GATEWAY_CONTAINER=existing-profile-gateway
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Save the run settings to `operator.env`**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 

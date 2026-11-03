@@ -32,7 +32,7 @@ One disposable Linux host contains two Gateway/DB containers and four network na
 
 Complete [overload](overload.md). Native body `priority` and `X-Vllm-Priority` are independent of the authorized objective. On an AI Gateway path with class policy active (`ai_gw_mode` and `ai_gw_class_on()`), the Gateway strips the header and renames the literal top-level JSON key to `_gw_prio`. Objectives and class settings in this lab enable that policy; lowering bindings or JWT profiles can also enable it. A deployment without class policy can pass these native hints through unchanged, so do not assume sanitization from Gateway mode alone. Escaped spellings are neutralized with underscore padding to preserve the original wire length (the example below becomes `_gw_prio_____`). It does not rewrite priority to zero. An unrelated nested priority is preserved.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Reapply the service rule with queue depth 30**
 
 Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 200 for the saved management response before continuing. Write `native-priority.request.json` with the displayed editable JSON input.
 
@@ -111,7 +111,7 @@ The synthetic backend accepts unknown JSON fields. Your real engine's schema mus
 
 A shared listener must keep one authentication contract across its model rules. Attempting a sibling with `disabled` must return 400 while existing keyed traffic stays healthy:
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Reject a keyless `other-model` sibling rule with 400**
 
 Send the displayed management request to `/config/loadbalancer` and retain its response. Require HTTP 400 for the saved management response before continuing.
 
@@ -194,7 +194,7 @@ if test -f "$LAB/after-listener-no-key.pid"; then
 fi
 ```
 
-**Step 4 — Check independent backend delivery**
+**Step 4 — Confirm `after-listener-no-key` got 401 with no receipt**
 
 Require saved HTTP 401 for `after-listener-no-key`. Read `after-listener-no-key` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 0 for `after-listener-no-key`.
 
@@ -211,7 +211,7 @@ Set a trusted support ingress binding and persist configuration before interrupt
 
 A management write can return **503 `ai_key_store_unavailable`** when it was not sent, or **504 `ai_key_store_outcome_unknown`** when it was sent but its result is unknown. A 504 may still be followed by a commit after the store recovers: preserve the response and read back before retrying. This management 504 is distinct from an inference `admission_queue_timeout`. The objective list can still return 200 for applied policy; inspect `store_reachable` and `source` separately. HTTP000 or a nonzero curl exit is a transport/client failure, not an expected policy response and not a successful exercise result.
 
-**Step 1 — Apply or read back the displayed management policy**
+**Step 1 — Create the `recovery-interface` network binding**
 
 Write `recovery-config-5.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/netidentity` and retain its response.
 
@@ -273,7 +273,7 @@ fi
 test "$(cat "$LAB/before-store-outage.http")" = 200
 ```
 
-**Step 3 — Apply or read back the displayed management policy**
+**Step 3 — Confirm `before-store-outage` delivery and persist configuration**
 
 Read `before-store-outage` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `before-store-outage`. Write `recovery-config-6.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/persist` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -322,7 +322,7 @@ JSON
 write_curl_exit=0
 ```
 
-**Step 5 — Apply or read back the displayed management policy**
+**Step 5 — Attempt the `outage-write-check` objective write while paused**
 
 Send the displayed management request to `/config/ai/objective` and retain its response.
 
@@ -342,9 +342,9 @@ jq -n --arg http "$status" --argjson curl_exit "$write_curl_exit" \
 test "$write_curl_exit" -eq 0
 ```
 
-**Step 6 — Apply or read back the displayed management policy**
+**Step 6 — Check the 503/504 write error and unreachable store**
 
-Send the displayed management request to `/config/ai/objective` and retain its response. Require HTTP 200 for the saved management response before continuing.
+Check that the paused write from Step 5 failed with either 503 `ai_key_store_unavailable` or 504 `ai_key_store_outcome_unknown`; any other status stops the lab. Then read `/config/ai/objective`, require HTTP 200, and require `store_reachable` to be `false`.
 
 ```bash
 case "$status" in
@@ -401,9 +401,9 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/receipt/live-network-policy" -o "$LAB/live-network-policy.receipt.json"
 ```
 
-**Step 8 — Apply or read back the displayed management policy**
+**Step 8 — Restart the Gateway process and expect readiness 503**
 
-Require backend receipt count 1 for `live-network-policy`. Send the displayed management request to `/status/ready` and retain its response. Require HTTP 503 for the saved management response before continuing. Send the displayed management request to `/config/ai/objective` and retain its response.
+Require backend receipt count 1 for `live-network-policy`. Confirm that `share-gateway` belongs to this lab, then stop its loxilb process with `kill -9` and start it again while the policy store is still paused. Require HTTP 503 from `/status/ready`, then read `/config/ai/objective` and retain its response.
 
 ```bash
 jq -e '.count == 1' "$LAB/live-network-policy.receipt.json"
@@ -432,7 +432,7 @@ printf 'HTTP %s\n' "$status"
 jq . "$LAB/recovery-config-10.response.json"
 ```
 
-**Step 9 — Apply or read back the displayed management policy**
+**Step 9 — Confirm objectives load from LKG with the store unreachable**
 
 Require HTTP 200 for the saved management response before continuing. Send the displayed management request to `/config/ai/objective` and retain its response. Write `cold-key-store.request.json` with the displayed editable JSON input.
 
@@ -511,7 +511,7 @@ ip netns exec share-backend curl -fsS --max-time 3 \
   "http://127.0.0.1:8080/receipt/recovered-network-lkg" -o "$LAB/recovered-network-lkg.receipt.json"
 ```
 
-**Step 12 — Assert the saved backend receipt count**
+**Step 12 — Confirm `recovered-network-lkg` reached the backend**
 
 Require backend receipt count 1 for `recovered-network-lkg`.
 
@@ -525,7 +525,7 @@ Unpause the store even if a preceding check fails. Wait for readiness **and** st
 
 **Step 1 — Restore the policy store and inspect recovery**
 
-Unpause `share-pg` before checking store recovery. Send the displayed management request to `$path` and retain its response. Require HTTP 200 for the saved management response before continuing.
+Unpause `share-pg`, then poll `/status/ready`, `/config/ai/apikey` and `/config/ai/objective` once per second for up to 90 seconds. Continue only when all three return HTTP 200; each attempt is logged to `readiness-recovery.jsonl`.
 
 ```bash
 set -euo pipefail
@@ -554,7 +554,7 @@ test "$ready" = true
 tail -n 3 "$probe_log"
 ```
 
-**Step 2 — Apply or read back the displayed management policy**
+**Step 2 — Reconcile the paused `outage-write-check` write**
 
 Send the displayed management request to `/config/ai/objective` and retain its response. Require HTTP 200 for the saved management response before continuing.
 
@@ -580,9 +580,9 @@ if test "$write_http" = 503; then
 fi
 ```
 
-**Step 3 — Apply or read back the displayed management policy**
+**Step 3 — Delete any late write and create `recovered-objective`**
 
-Send the displayed management request to `/config/ai/objective/outage-write-check` and retain its response. Require HTTP 200 for the saved management response before continuing. Write `recovery-config-13.request.json` with the displayed editable JSON input. Send the displayed management request to `/config/ai/objective` and retain its response.
+If the paused `outage-write-check` write was committed late, delete only that row and require HTTP 200. Then write `recovery-config-13.request.json` with the displayed editable JSON input and create `recovered-objective` through `/config/ai/objective`.
 
 ```bash
 if test "$write_present" = true; then
@@ -636,7 +636,7 @@ fi
 test "$(cat "$LAB/store-key-recovered.http")" = 200
 ```
 
-**Step 5 — Apply or read back the displayed management policy**
+**Step 5 — Confirm `store-key-recovered`; delete recovery binding and objective**
 
 Read `store-key-recovered` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `store-key-recovered`. Send the displayed management request to `/config/ai/netidentity/recovery-interface` and retain its response. Require HTTP 200 for the saved management response before continuing. Send the displayed management request to `/config/ai/objective/recovered-objective` and retain its response.
 
@@ -720,7 +720,7 @@ fi
 test "$(cat "$LAB/surviving-research.http")" = 200
 ```
 
-**Step 8 — Apply or read back the displayed management policy**
+**Step 8 — Confirm `surviving-research` and wait for an idle queue**
 
 Read `surviving-research` directly from the backend receipt endpoint; this observation bypasses the Gateway. Require backend receipt count 1 for `surviving-research`. Send the displayed management request to `/config/loadbalancer/all` and retain its response. Inspect the displayed effective inflight/queue condition; a successful configuration response alone does not prove this state.
 

@@ -50,9 +50,9 @@ DELETE key. `priority` is integer0..65535, larger wins; zone is0 or omitted beca
 zone classification. A matching whitelist wins equal priority. Keep backend/store/event sources out
 of blacklist tests.
 
-**Step 1 — Prepare `blacklist.json`**
+**Step 1 — Blacklist source B and probe B and A**
 
-Write the complete input before sending it. This step creates a local file; it does not apply policy. Change the displayed values here, then use this same file in the following request.
+Write `blacklist.json`, apply it to drop source B (192.0.2.51), and read back the IP filters. Then send a warm-up and a denied request from B, check that the backend received no denied request, and send a normal request from A.
 
 ```bash
 cat > "$LAB/blacklist.json" <<'JSON'
@@ -81,7 +81,7 @@ printf 'CURL_EXIT=%s\n' "$?"
 cat "$LAB/blacklist-normal.txt"
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Confirm A's receipt and the blacklist drop delta**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -125,9 +125,9 @@ The complete eight required fields below are a replacement, even for disabled gu
 connection-rate controls both count SYN packets, not completed handshakes. UDP byte limits are MiB/s.
 First exercise UDP by itself so that a SYN drop cannot explain the result.
 
-**Step 1 — Prepare `rate-source.json`**
+**Step 1 — Apply a UDP-only guard and measure blocked datagrams**
 
-Write the complete input before sending it. This step creates a local file; it does not apply policy. Change the displayed values here, then use this same file in the following request.
+Write `rate-source.json`, derive a UDP-only variant with a threshold of 2 packets, apply it and read it back. Then send UDP bursts from C and measure the change in `loxilb_security_udp_blocked_total`.
 
 ```bash
 cat > "$LAB/rate-source.json" <<'JSON'
@@ -156,7 +156,7 @@ docker exec uc7-gw curl -fsS --max-time 20 --config /etc/loxilb/control.curl "$A
 python3 "$INPUTS/metric-delta.py" "$LAB/udp-before.prom" "$LAB/udp-after.prom" loxilb_security_udp_blocked_total
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Confirm normal TCP delivery from A under the UDP guard**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
@@ -255,7 +255,7 @@ send10 datagrams each; retain all20 sends and allow the aligned-window boundary 
 cardinality. Require a positive **aggregate** owning counter rather than inferring protection from
 a source counter. The warm-up creates an observed series before the measured interval.
 
-**Step 1 — Check completion and delivery**
+**Step 1 — Set a shared UDP budget and flood from A and C**
 
 Wait for the relevant client and check its saved HTTP code. Fetch receipts directly from the backend namespace: accepted traffic and policy denials have different expected counts.
 
@@ -286,7 +286,7 @@ docker exec uc7-gw curl -fsS --config /etc/loxilb/control.curl "$API/metrics" > 
 docker exec uc7-a bash -c 'for n in {1..20}; do printf edge > /dev/udp/192.0.2.10/8080; done'
 ```
 
-**Step 2 — Send the request and save the observation**
+**Step 2 — Check the whitelist bypass and final B/A delivery**
 
 Use the namespace/container shown by the command. Keep the response file and HTTP status separate; the next check explains the expected result.
 
