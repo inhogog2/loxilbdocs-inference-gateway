@@ -332,14 +332,6 @@ are maintained in [Configuration and Arguments](configuration-tuning.md), with
 Verify effective binding and independent delivery with
 [KV routing observability](../operations/kv-routing-verification.md).
 
-<a id="configuration"></a>
-
-[Current reference](routing-hierarchy.md).
-
-<a id="verify"></a>
-
-[Current reference](routing-hierarchy.md).
-
 ## Check your result
 
 Use independent request placement evidence; a configured Exact label alone does not prove a cache hit.
@@ -349,3 +341,11 @@ Select a supported model/engine tuple before interpreting results. Keep direct-w
 ## Next steps and cleanup
 
 Use the canonical deployment sequence rather than combining fragments from different engine/version pages. Drain before switching or deleting owned resources; retained result pages are evidence, not another deployment recipe. Read the [lab starting point](model-engine-standard/select.md) if required values are missing. Use [cleanup and recovery](model-engine-standard/lifecycle.md) when ending the run.
+
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
+
+- <span id="configuration"></span>[configuration](routing-hierarchy.md)
+- <span id="verify"></span>[verify](routing-hierarchy.md)
+
+</div>

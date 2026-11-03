@@ -73,86 +73,29 @@ require their own compatibility/evidence boundary. Verify the effective rule and
 [LMCache and the experimental controller](../use-cases/advanced-cache-integrations.md)
 have separate version, layout, telemetry and qualification requirements.
 
-<a id="kv-cache-aware-routing"></a>
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
 
-[Current reference](engine-contracts.md).
+- <span id="kv-cache-aware-routing"></span>[kv-cache-aware-routing](engine-contracts.md)
+- <span id="concept"></span>[concept](../concepts/kv-routing.md)
+- <span id="the-block-hash-parity-contract"></span>[the-block-hash-parity-contract](engine-contracts.md)
+- <span id="vllm-parity-triad"></span>[vllm-parity-triad](engine-contracts.md)
+- <span id="sglang-parity-triad"></span>[sglang-parity-triad](engine-contracts.md)
+- <span id="tokenizer-staging"></span>[tokenizer-staging](engine-contracts.md)
+- <span id="configuration"></span>[configuration](engine-contracts.md)
+- <span id="vllm-kv-exact-rule-kvexactmode-1"></span>[vllm-kv-exact-rule-kvexactmode-1](engine-contracts.md)
+- <span id="sglang-kv-exact-rule-kvexactmode-3"></span>[sglang-kv-exact-rule-kvexactmode-3](engine-contracts.md)
+- <span id="verify"></span>[verify](../operations/kv-routing-verification.md)
+- <span id="troubleshoot"></span>[troubleshoot](../operations/kv-routing-verification.md)
+- <span id="0-cache-hits-a-mismatched-parity-leg"></span>[0-cache-hits-a-mismatched-parity-leg](../operations/kv-routing-verification.md)
+- <span id="inventory-stays-empty"></span>[inventory-stays-empty](../operations/kv-routing-verification.md)
+- <span id="tier-15-never-activates"></span>[tier-15-never-activates](../operations/kv-routing-verification.md)
+- <span id="high-miss-rate-on-repeated-prompts"></span>[high-miss-rate-on-repeated-prompts](../operations/kv-routing-verification.md)
+- <span id="tiered-caching-with-lmcache-advanced"></span>[tiered-caching-with-lmcache-advanced](../use-cases/advanced-cache-integrations.md)
+- <span id="what-it-is"></span>[what-it-is](../use-cases/advanced-cache-integrations.md)
+- <span id="configuration-surface"></span>[configuration-surface](../use-cases/advanced-cache-integrations.md)
+- <span id="metrics"></span>[metrics](../use-cases/advanced-cache-integrations.md)
+- <span id="hazards-read-before-enabling"></span>[hazards-read-before-enabling](../use-cases/advanced-cache-integrations.md)
+- <span id="next-steps"></span>[next-steps](engine-contracts.md)
 
-<a id="concept"></a>
-
-[Current reference](../concepts/kv-routing.md).
-
-<a id="the-block-hash-parity-contract"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="vllm-parity-triad"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="sglang-parity-triad"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="tokenizer-staging"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="configuration"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="vllm-kv-exact-rule-kvexactmode-1"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="sglang-kv-exact-rule-kvexactmode-3"></a>
-
-[Current reference](engine-contracts.md).
-
-<a id="verify"></a>
-
-[Current reference](../operations/kv-routing-verification.md).
-
-<a id="troubleshoot"></a>
-
-[Current reference](../operations/kv-routing-verification.md).
-
-<a id="0-cache-hits-a-mismatched-parity-leg"></a>
-
-[Current reference](../operations/kv-routing-verification.md).
-
-<a id="inventory-stays-empty"></a>
-
-[Current reference](../operations/kv-routing-verification.md).
-
-<a id="tier-15-never-activates"></a>
-
-[Current reference](../operations/kv-routing-verification.md).
-
-<a id="high-miss-rate-on-repeated-prompts"></a>
-
-[Current reference](../operations/kv-routing-verification.md).
-
-<a id="tiered-caching-with-lmcache-advanced"></a>
-
-[Current reference](../use-cases/advanced-cache-integrations.md).
-
-<a id="what-it-is"></a>
-
-[Current reference](../use-cases/advanced-cache-integrations.md).
-
-<a id="configuration-surface"></a>
-
-[Current reference](../use-cases/advanced-cache-integrations.md).
-
-<a id="metrics"></a>
-
-[Current reference](../use-cases/advanced-cache-integrations.md).
-
-<a id="hazards-read-before-enabling"></a>
-
-[Current reference](../use-cases/advanced-cache-integrations.md).
-
-<a id="next-steps"></a>
-
-[Current reference](engine-contracts.md).
+</div>

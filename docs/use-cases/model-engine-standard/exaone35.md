@@ -2,24 +2,13 @@
 
 This page has been consolidated. Continue to the [current documentation](models.md#exaone35).
 
-## Previous section links
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
 
-<a id="exaone35-78b-standard-engine-configuration"></a>
+- <span id="exaone35-78b-standard-engine-configuration"></span>[exaone35-78b-standard-engine-configuration](models.md#exaone35)
+- <span id="model-identity-and-settings"></span>[model-identity-and-settings](models.md#exaone35)
+- <span id="select-an-engine-and-routing-mode"></span>[select-an-engine-and-routing-mode](models.md#exaone35)
+- <span id="prepare-and-operate"></span>[prepare-and-operate](models.md#exaone35)
+- <span id="catalog-status-and-evidence-limits"></span>[catalog-status-and-evidence-limits](models.md#exaone35)
 
-[Continue: exaone35 78b standard engine configuration](models.md#exaone35)
-
-<a id="model-identity-and-settings"></a>
-
-[Continue: model identity and settings](models.md#exaone35)
-
-<a id="select-an-engine-and-routing-mode"></a>
-
-[Continue: select an engine and routing mode](models.md#exaone35)
-
-<a id="prepare-and-operate"></a>
-
-[Continue: prepare and operate](models.md#exaone35)
-
-<a id="catalog-status-and-evidence-limits"></a>
-
-[Continue: catalog status and evidence limits](models.md#exaone35)
+</div>

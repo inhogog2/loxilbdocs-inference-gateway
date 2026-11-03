@@ -2,24 +2,13 @@
 
 This page has been consolidated. Continue to the [current documentation](prepare.md).
 
-## Previous section links
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
 
-<a id="prepare-and-launch-model-workers"></a>
+- <span id="prepare-and-launch-model-workers"></span>[prepare-and-launch-model-workers](prepare.md)
+- <span id="prepare-each-worker"></span>[prepare-each-worker](prepare.md)
+- <span id="launch-the-selected-engine"></span>[launch-the-selected-engine](launch.md#matrix-engine-launch)
+- <span id="verify-direct-engine-responses"></span>[verify-direct-engine-responses](launch.md#verify-direct-engine-responses)
+- <span id="versioned-upstream-references"></span>[versioned-upstream-references](prepare.md)
 
-[Continue: prepare and launch model workers](prepare.md)
-
-<a id="prepare-each-worker"></a>
-
-[Continue: prepare each worker](prepare.md)
-
-<a id="launch-the-selected-engine"></a>
-
-[Continue: launch the selected engine](launch.md#matrix-engine-launch)
-
-<a id="verify-direct-engine-responses"></a>
-
-[Continue: verify direct engine responses](launch.md#verify-direct-engine-responses)
-
-<a id="versioned-upstream-references"></a>
-
-[Continue: versioned upstream references](prepare.md)
+</div>

@@ -2,36 +2,16 @@
 
 This page has been consolidated. Continue to the [current documentation](matrix-manual.md).
 
-## Previous section links
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
 
-<a id="five-model-manual-updated-location"></a>
+- <span id="five-model-manual-updated-location"></span>[five-model-manual-updated-location](matrix-manual.md)
+- <span id="matrix-model-selection"></span>[matrix-model-selection](select.md#matrix-model-selection)
+- <span id="matrix-registry-preparation"></span>[matrix-registry-preparation](prepare.md#matrix-registry-preparation)
+- <span id="matrix-engine-launch"></span>[matrix-engine-launch](launch.md#matrix-engine-launch)
+- <span id="matrix-rule-application"></span>[matrix-rule-application](configure.md#matrix-rule-application)
+- <span id="matrix-request-verification"></span>[matrix-request-verification](verify.md#matrix-request-verification)
+- <span id="matrix-lifecycle"></span>[matrix-lifecycle](lifecycle.md)
+- <span id="matrix-results"></span>[matrix-results](results.md#matrix-results)
 
-[Continue: five model manual updated location](matrix-manual.md)
-
-<a id="matrix-model-selection"></a>
-
-[Continue: matrix model selection](select.md#matrix-model-selection)
-
-<a id="matrix-registry-preparation"></a>
-
-[Continue: matrix registry preparation](prepare.md#matrix-registry-preparation)
-
-<a id="matrix-engine-launch"></a>
-
-[Continue: matrix engine launch](launch.md#matrix-engine-launch)
-
-<a id="matrix-rule-application"></a>
-
-[Continue: matrix rule application](configure.md#matrix-rule-application)
-
-<a id="matrix-request-verification"></a>
-
-[Continue: matrix request verification](verify.md#matrix-request-verification)
-
-<a id="matrix-lifecycle"></a>
-
-[Continue: matrix lifecycle](lifecycle.md)
-
-<a id="matrix-results"></a>
-
-[Continue: matrix results](results.md#matrix-results)
+</div>

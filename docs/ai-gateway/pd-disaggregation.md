@@ -158,10 +158,10 @@ Repository validation proves configuration guards and deterministic mock request
 - [vLLM Integration](vllm-integration.md)
 - [Engine Capability Matrix](../concepts/engine-capability-matrix.md)
 
-<a id="shared-configuration-fields"></a>
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
 
-[Current reference](../use-cases/pd-deployment.md).
+- <span id="shared-configuration-fields"></span>[shared-configuration-fields](../use-cases/pd-deployment.md)
+- <span id="minimal-validation-workflow"></span>[minimal-validation-workflow](../use-cases/pd-deployment.md)
 
-<a id="minimal-validation-workflow"></a>
-
-[Current reference](../use-cases/pd-deployment.md).
+</div>

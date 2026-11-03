@@ -7955,7 +7955,7 @@
       "evidence": "unexecuted-example",
       "id": "cabb50c259a349ffd3e4",
       "language": "plain",
-      "line": 54,
+      "line": 52,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -7972,7 +7972,7 @@
       "evidence": "unexecuted-example",
       "id": "282c082856bbc2dcc4fb",
       "language": "text",
-      "line": 116,
+      "line": 114,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -7989,7 +7989,7 @@
       "evidence": "unexecuted-example",
       "id": "6f6c1d3da58749aa63f6",
       "language": "text",
-      "line": 158,
+      "line": 156,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8006,7 +8006,7 @@
       "evidence": "unexecuted-example",
       "id": "ce189c9844df4aef9396",
       "language": "text",
-      "line": 176,
+      "line": 174,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8023,7 +8023,7 @@
       "evidence": "shell-syntax-only",
       "id": "8e1d3db3c7a34efc954b",
       "language": "bash",
-      "line": 216,
+      "line": 214,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8040,7 +8040,7 @@
       "evidence": "shell-syntax-only",
       "id": "497e0a66cc6619cac3de",
       "language": "bash",
-      "line": 247,
+      "line": 245,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8057,7 +8057,7 @@
       "evidence": "non-standalone-mutation-fragment",
       "id": "879363cdc5cde6582dc4",
       "language": "bash",
-      "line": 280,
+      "line": 277,
       "mutation_contract": {
         "active_path": true,
         "cleanup": true,
@@ -8087,7 +8087,7 @@
       "evidence": "non-standalone-mutation-fragment",
       "id": "8362481d659feedc8710",
       "language": "bash",
-      "line": 297,
+      "line": 294,
       "mutation_contract": {
         "active_path": true,
         "cleanup": true,
@@ -8117,7 +8117,7 @@
       "evidence": "shell-syntax-only",
       "id": "e8468970b2f3a535edaf",
       "language": "bash",
-      "line": 346,
+      "line": 343,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8134,7 +8134,7 @@
       "evidence": "unexecuted-example",
       "id": "b20c566b0ae92ac36101",
       "language": "plain",
-      "line": 374,
+      "line": 371,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8151,7 +8151,7 @@
       "evidence": "shell-syntax-only",
       "id": "11c00f31bddd8c52abfc",
       "language": "bash",
-      "line": 400,
+      "line": 397,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8168,7 +8168,7 @@
       "evidence": "visual-explanation",
       "id": "64b689e3cc6396ea2bd0",
       "language": "mermaid",
-      "line": 433,
+      "line": 430,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,
@@ -8185,7 +8185,7 @@
       "evidence": "unexecuted-example",
       "id": "c8a654c5712b8983324b",
       "language": "plain",
-      "line": 505,
+      "line": 502,
       "path": "docs/use-cases/deploy-pd-disaggregation.md",
       "quality_contract": {
         "cleanup": true,

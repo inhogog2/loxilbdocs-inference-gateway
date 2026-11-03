@@ -46,6 +46,7 @@ extra_css:
 
 extra_javascript:
   - javascripts/analytics.js
+  - javascripts/legacy-anchors.js
 
 markdown_extensions:
   - admonition

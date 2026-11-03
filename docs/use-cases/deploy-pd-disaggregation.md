@@ -11,8 +11,6 @@
     PASS verdicts into P/D or infer full fail-over acceptance. Start with the
     [P/D deployment overview](pd-deployment.md) and preserve historical failure limits.
 
-
-
 A hands-on, cloud-agnostic deploy and debug guide for running KV-cache-aware routing on a
 real GPU fleet with **prefill/decode (P/D) disaggregation** — bring-your-own hardware, any
 GPU instance. This page is the operational companion to the mechanism reference in
@@ -272,7 +270,6 @@ its own baselines:
 | `:9002`  | true, `pd_cache_aware_mode:true` (`pd_cache_threshold:20`, `pd_balance_abs_threshold:3`) | heuristic cache-affinity | heuristic mode |
 | `:9003`  | true, **`kvExactMode:1`** (`kvZmqPort:5557`, `kvHashAlgo:sha256_cbor`, `kvBlockSize:16`) | KV-exact overlap | the method |
 
-
 The KV-exact rule body (`:9003`), posted to `http://<VIP>:11111/netlox/v1/config/loadbalancer`:
 
 === "curl"
@@ -521,30 +518,6 @@ Any other shape points back to the parity triad (§6) or the ZMQ inventory plane
 - [Configuration Reference](../ai-gateway/configuration-reference.md) — every `serviceArguments`
   field, default, and enum.
 
-<a id="deploy-prefilldecode-disaggregation"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="6-the-block-hash-parity-contract-why-routing-silently-degrades-to-rr"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="8-observability-the-metrics-that-exist-and-a-prometheus-gotcha"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="81-the-kv-pd-metric-set"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="82-is-kv-exact-routing-engaged-the-three-checks"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="83-quick-did-it-fire-checks-for-a-fresh-byo-fleet"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
 ## Check your result
 
 Verify all three planes: client HTTP, metadata/inventory, and native KV transfer. Preserve the historical version limits.
@@ -554,3 +527,15 @@ Select a supported model/engine tuple before interpreting results. Keep direct-w
 ## Next steps and cleanup
 
 Use the role-specific cleanup in the selected P/D runbook below or linked from this page. Stop its transfer/event publishers and native Prefill/Decode processes by their recorded ownership. Do not apply a converged worker teardown to a separate P/D deployment. Preserve the model data and evidence under your retention policy.
+
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
+
+- <span id="deploy-prefilldecode-disaggregation"></span>[deploy-prefilldecode-disaggregation](../ai-gateway/engine-contracts.md)
+- <span id="6-the-block-hash-parity-contract-why-routing-silently-degrades-to-rr"></span>[6-the-block-hash-parity-contract-why-routing-silently-degrades-to-rr](../ai-gateway/engine-contracts.md)
+- <span id="8-observability-the-metrics-that-exist-and-a-prometheus-gotcha"></span>[8-observability-the-metrics-that-exist-and-a-prometheus-gotcha](../ai-gateway/engine-contracts.md)
+- <span id="81-the-kv-pd-metric-set"></span>[81-the-kv-pd-metric-set](../ai-gateway/engine-contracts.md)
+- <span id="82-is-kv-exact-routing-engaged-the-three-checks"></span>[82-is-kv-exact-routing-engaged-the-three-checks](../ai-gateway/engine-contracts.md)
+- <span id="83-quick-did-it-fire-checks-for-a-fresh-byo-fleet"></span>[83-quick-did-it-fire-checks-for-a-fresh-byo-fleet](../ai-gateway/engine-contracts.md)
+
+</div>

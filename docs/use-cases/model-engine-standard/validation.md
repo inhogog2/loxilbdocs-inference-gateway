@@ -82,18 +82,6 @@ and [Step 6](lifecycle.md) for scoped cleanup and restoration. Preserve failed
 arms, interrupted streams and independent per-endpoint receipts. The current
 functional result does not close capacity, full fail-over or release gates.
 
-<a id="plan-an-independent-ab-measurement"></a>
-
-[Current reference](../performance-methodology.md).
-
-<a id="collect-and-interpret-results"></a>
-
-[Current reference](../performance-methodology.md).
-
-<a id="failure-recovery-and-cleanup-gate"></a>
-
-[Current reference](verify.md#negative-and-recovery-checks).
-
 ## Check your result
 
 Treat an unrun dimension as unqualified even when another dimension passed.
@@ -103,3 +91,12 @@ Select a supported model/engine tuple before interpreting results. Keep direct-w
 ## Next steps and cleanup
 
 Use the canonical deployment sequence rather than combining fragments from different engine/version pages. Drain before switching or deleting owned resources; retained result pages are evidence, not another deployment recipe. Read the [lab starting point](../model-engine-standard/select.md) if required values are missing. Use [cleanup and recovery](../model-engine-standard/lifecycle.md) when ending the run.
+
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
+
+- <span id="plan-an-independent-ab-measurement"></span>[plan-an-independent-ab-measurement](../performance-methodology.md)
+- <span id="collect-and-interpret-results"></span>[collect-and-interpret-results](../performance-methodology.md)
+- <span id="failure-recovery-and-cleanup-gate"></span>[failure-recovery-and-cleanup-gate](verify.md#negative-and-recovery-checks)
+
+</div>

@@ -51,55 +51,6 @@ source catalog. Download the [configuration ZIP](../../assets/model-engine-stand
 and follow Step 1 to verify it. Historical inputs remain separate from current
 `matrix-configurations/` and `evaluation-profiles/` inputs.
 
-
-<details>
-<summary>Links from the previous combined manual</summary>
-
-<a id="matrix-model-selection"></a>
-
-[Continue to this section](select.md#matrix-model-selection).
-
-<a id="matrix-registry-preparation"></a>
-
-[Continue to this section](prepare.md#matrix-registry-preparation).
-
-<a id="matrix-engine-launch"></a>
-
-[Continue to this section](launch.md#matrix-engine-launch).
-
-<a id="matrix-rule-application"></a>
-
-[Continue to this section](configure.md#matrix-rule-application).
-
-<a id="matrix-request-verification"></a>
-
-[Continue to this section](verify.md#matrix-request-verification).
-
-<a id="matrix-lifecycle"></a>
-
-[Continue to this section](lifecycle.md).
-
-<a id="matrix-results"></a>
-
-[Continue to this section](results.md#matrix-results).
-
-<a id="1-versions-and-verification-scope"></a>
-
-[Current section](select.md#versions-and-verification-scope).
-
-<a id="9-remaining-qualification-and-rerun-conditions"></a>
-
-[Current section](qualification-todo.md).
-
-
-
-
-<a id="five-model-rr-and-kv-exact-configuration-and-verification"></a>
-
-[Current section](matrix-manual.md).
-
-</details>
-
 ## Check your result
 
 The input model, snapshot, tokenizer and profile identity must remain consistent across selection, launch and routing.
@@ -109,3 +60,19 @@ Select a supported model/engine tuple before interpreting results. Keep direct-w
 ## Next steps and cleanup
 
 Use the canonical deployment sequence rather than combining fragments from different engine/version pages. Drain before switching or deleting owned resources; retained result pages are evidence, not another deployment recipe. Read the [lab starting point](../model-engine-standard/select.md) if required values are missing. Use [cleanup and recovery](../model-engine-standard/lifecycle.md) when ending the run.
+
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
+
+- <span id="matrix-model-selection"></span>[matrix-model-selection](select.md#matrix-model-selection)
+- <span id="matrix-registry-preparation"></span>[matrix-registry-preparation](prepare.md#matrix-registry-preparation)
+- <span id="matrix-engine-launch"></span>[matrix-engine-launch](launch.md#matrix-engine-launch)
+- <span id="matrix-rule-application"></span>[matrix-rule-application](configure.md#matrix-rule-application)
+- <span id="matrix-request-verification"></span>[matrix-request-verification](verify.md#matrix-request-verification)
+- <span id="matrix-lifecycle"></span>[matrix-lifecycle](lifecycle.md)
+- <span id="matrix-results"></span>[matrix-results](results.md#matrix-results)
+- <span id="1-versions-and-verification-scope"></span>[1-versions-and-verification-scope](select.md#versions-and-verification-scope)
+- <span id="9-remaining-qualification-and-rerun-conditions"></span>[9-remaining-qualification-and-rerun-conditions](qualification-todo.md)
+- <span id="five-model-rr-and-kv-exact-configuration-and-verification"></span>[five-model-rr-and-kv-exact-configuration-and-verification](matrix-manual.md)
+
+</div>

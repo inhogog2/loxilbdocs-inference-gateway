@@ -26,3 +26,6 @@
     border-left: 1px solid var(--md-default-fg-color--lightest);
   }
 }
+
+/* Old section IDs kept for external deep links; javascripts/legacy-anchors.js forwards them. */
+.md-typeset .legacy-anchors { display: none; }

@@ -269,30 +269,6 @@ and completed-traffic evidence before performance interpretation.
 For the conceptual ladder and the selection-law math, see [Routing Hierarchy](routing-hierarchy.md);
 for the KV block-hash contract, see [KV-Cache Routing](../ai-gateway/kv-caching.md).
 
-<a id="configuration-tuning"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="vllm-side-the-parity-triad"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="environment-parity-preflight"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="the-parity-triad"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="read-only-preflight-inspect-the-running-container"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
-<a id="loxilb-runtime-environment-parity-and-admission-relevant"></a>
-
-[Current reference](../ai-gateway/engine-contracts.md).
-
 ## Check your result
 
 Read back configured and effective values; a valid field does not prove serving or performance.
@@ -302,3 +278,15 @@ Select a supported model/engine tuple before interpreting results. Keep direct-w
 ## Next steps and cleanup
 
 Use the canonical deployment sequence rather than combining fragments from different engine/version pages. Drain before switching or deleting owned resources; retained result pages are evidence, not another deployment recipe. Read the [lab starting point](model-engine-standard/select.md) if required values are missing. Use [cleanup and recovery](model-engine-standard/lifecycle.md) when ending the run.
+
+<!-- Previous section IDs: kept so old deep links redirect to the current page. -->
+<div class="legacy-anchors" markdown>
+
+- <span id="configuration-tuning"></span>[configuration-tuning](../ai-gateway/engine-contracts.md)
+- <span id="vllm-side-the-parity-triad"></span>[vllm-side-the-parity-triad](../ai-gateway/engine-contracts.md)
+- <span id="environment-parity-preflight"></span>[environment-parity-preflight](../ai-gateway/engine-contracts.md)
+- <span id="the-parity-triad"></span>[the-parity-triad](../ai-gateway/engine-contracts.md)
+- <span id="read-only-preflight-inspect-the-running-container"></span>[read-only-preflight-inspect-the-running-container](../ai-gateway/engine-contracts.md)
+- <span id="loxilb-runtime-environment-parity-and-admission-relevant"></span>[loxilb-runtime-environment-parity-and-admission-relevant](../ai-gateway/engine-contracts.md)
+
+</div>
