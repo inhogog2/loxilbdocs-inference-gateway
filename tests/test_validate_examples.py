@@ -223,19 +223,25 @@ class DocumentationExampleTests(unittest.TestCase):
             family for family in manifest["families"]
             if family["release_scope"] == "release"
         ]
-        self.assertEqual(292, len(families))
-        self.assertEqual(292, len(manifest["families"]))
-        self.assertTrue(all(family["writer_present"] for family in families))
+        self.assertEqual(298, len(families))
+        self.assertEqual(298, len(manifest["families"]))
+        # Upstream labels scrape-time GaugeFuncs (api/prometheus/ai_metrics.go)
+        # definition-only because nothing writes them ahead of a scrape. Any
+        # other release family without a writer is still a failure.
+        missing_writers = sorted(f["name"] for f in families if not f["writer_present"])
+        self.assertEqual(["loxilb_ai_epp_inflight", "loxilb_ai_epp_pending"], missing_writers)
+        self.assertTrue(all(f["implementation_status"] == "definition-only"
+                            for f in families if not f["writer_present"]))
         self.assertTrue(all(family["evidence_present"] for family in families))
 
     def test_gateway_main_and_release_sources_are_exactly_frozen(self) -> None:
         contract = self.validator.gateway_contract
         self.assertEqual(
-            "ef8813af4d75dc3db0bc5a9d7e02e9abd3e46bd1",
+            "c7b4af87f1eda7db1a6667aa797e1d3b389d21cc",
             contract["source"]["commit"],
         )
         self.assertEqual(
-            "f515ab5aeed8e8643f08906d0a90e9a2b893ba8d",
+            "f00d8b3f7de5b70e3971167a791ce5a3cf5d78e4",
             contract["source"]["ebpf_submodule_commit"],
         )
         self.assertEqual("v0.9.8.9-rc.1", contract["source"]["release_tag"])

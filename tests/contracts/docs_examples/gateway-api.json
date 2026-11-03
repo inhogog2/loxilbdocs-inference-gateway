@@ -14,17 +14,17 @@
         ],
         "claim": "jwt-policy-and-token-accounting",
         "matching_workflow_objects": {
-          ".github/workflows/ai-gateway-sanity.yml": "18e9328bd985bf8f441bb51ef8f80314946c4059"
+          ".github/workflows/ai-gateway-sanity.yml": "7cf0bc8805e3930fab236914c8860a7a0a9cee15"
         },
         "matching_workflows": [
           ".github/workflows/ai-gateway-sanity.yml"
         ],
-        "scenario_object_id": "6bfc30f9b7fdf8f87f13c741abd89f6e8214f203",
+        "scenario_object_id": "94dc15cdcec466ed701603ec8656abf1f5cdaa50",
         "scenario_path": "cicd/ai-jwtauth",
-        "validation_object_id": "bb5d068d2e91c8eb9e1bbe6ae3de25669a2cab85",
+        "validation_object_id": "cb1f4142acb4e4e7b97b4d7b856fb53888c29702",
         "validation_path": "cicd/ai-jwtauth/validation.sh",
         "workflow_membership": "wired",
-        "workflow_object_id": "18e9328bd985bf8f441bb51ef8f80314946c4059",
+        "workflow_object_id": "7cf0bc8805e3930fab236914c8860a7a0a9cee15",
         "workflow_path": ".github/workflows/ai-gateway-sanity.yml"
       },
       {
@@ -69,7 +69,7 @@
         ],
         "claim": "pd-and-worker-scrape-metrics",
         "matching_workflow_objects": {
-          ".github/workflows/ai-gateway-sanity.yml": "18e9328bd985bf8f441bb51ef8f80314946c4059"
+          ".github/workflows/ai-gateway-sanity.yml": "7cf0bc8805e3930fab236914c8860a7a0a9cee15"
         },
         "matching_workflows": [
           ".github/workflows/ai-gateway-sanity.yml"
@@ -79,7 +79,7 @@
         "validation_object_id": "af66abffc547de2ca3eb062e6e3964a610af6f56",
         "validation_path": "cicd/vllm-pd-disagg/validation.sh",
         "workflow_membership": "wired",
-        "workflow_object_id": "18e9328bd985bf8f441bb51ef8f80314946c4059",
+        "workflow_object_id": "7cf0bc8805e3930fab236914c8860a7a0a9cee15",
         "workflow_path": ".github/workflows/ai-gateway-sanity.yml"
       },
       {
@@ -93,7 +93,7 @@
         "claim": "sockmap-observability",
         "matching_workflow_objects": {},
         "matching_workflows": [],
-        "scenario_object_id": "0317fb6f6da9125abb0aa77121d6aca5e31cbee6",
+        "scenario_object_id": "66ad59d2e889ff325a86075fba7c0ccd26313194",
         "scenario_path": "cicd/sockmap-fullproxy",
         "validation_object_id": "78b125dae6b883fa9ef2960e0ef90d47dae5677b",
         "validation_path": "cicd/sockmap-fullproxy/validation_observability.sh",
@@ -125,11 +125,11 @@
   "contract_version": 1,
   "metric_manifest": {
     "coverage": {
-      "default_families": 292,
+      "default_families": 298,
       "default_referenced": 184,
-      "default_unreferenced": 87,
+      "default_unreferenced": 93,
       "default_waived": 21,
-      "writer_classified": 292,
+      "writer_classified": 298,
       "writer_unclassified": 0,
       "writer_unverified": 80
     },
@@ -401,6 +401,65 @@
         "release_scope": "release",
         "runtime_scope": "gateway-default",
         "type": "gauge",
+        "writer_present": true
+      },
+      {
+        "activation": "V",
+        "evidence_present": true,
+        "implementation_status": "conditional-with-proven-writer",
+        "labels": [
+          "reason"
+        ],
+        "name": "loxilb_ai_epp_candidates_rejected_total",
+        "release_scope": "release",
+        "runtime_scope": "gateway-default",
+        "type": "counter",
+        "writer_present": true
+      },
+      {
+        "activation": "E",
+        "evidence_present": true,
+        "implementation_status": "conditional-with-proven-writer",
+        "labels": [],
+        "name": "loxilb_ai_epp_duration_seconds",
+        "release_scope": "release",
+        "runtime_scope": "gateway-default",
+        "type": "histogram",
+        "writer_present": true
+      },
+      {
+        "activation": "E",
+        "evidence_present": true,
+        "implementation_status": "definition-only",
+        "labels": [],
+        "name": "loxilb_ai_epp_inflight",
+        "release_scope": "release",
+        "runtime_scope": "gateway-default",
+        "type": "gauge",
+        "writer_present": false
+      },
+      {
+        "activation": "E",
+        "evidence_present": true,
+        "implementation_status": "definition-only",
+        "labels": [],
+        "name": "loxilb_ai_epp_pending",
+        "release_scope": "release",
+        "runtime_scope": "gateway-default",
+        "type": "gauge",
+        "writer_present": false
+      },
+      {
+        "activation": "V",
+        "evidence_present": true,
+        "implementation_status": "conditional-with-proven-writer",
+        "labels": [
+          "outcome"
+        ],
+        "name": "loxilb_ai_epp_requests_total",
+        "release_scope": "release",
+        "runtime_scope": "gateway-default",
+        "type": "counter",
         "writer_present": true
       },
       {
@@ -963,6 +1022,19 @@
         "implementation_status": "conditional-with-proven-writer",
         "labels": [],
         "name": "loxilb_ai_route_host_missing_total",
+        "release_scope": "release",
+        "runtime_scope": "gateway-default",
+        "type": "counter",
+        "writer_present": true
+      },
+      {
+        "activation": "C",
+        "evidence_present": true,
+        "implementation_status": "verified-static",
+        "labels": [
+          "plane"
+        ],
+        "name": "loxilb_ai_store_write_outcome_unknown_total",
         "release_scope": "release",
         "runtime_scope": "gateway-default",
         "type": "counter",
@@ -3918,15 +3990,15 @@
       }
     },
     "label_source": {
-      "sha256": "a96d551066ffda3976c70c7ae89c2d7cb7fd82e6203c4e87ce64e8ab7427017a",
+      "sha256": "ffb660a1c45b4034e5b8cc12bfb2faa835004e7afe3ed3e4a96a7a58b74b9017",
       "source_path": "api/prometheus/ai_metrics.go"
     },
     "provenance": {
-      "generated_at": "2026-10-26T11:50:00+00:00",
-      "source_revision": "82bbeaccc2b78f35149f0637f257f0bba10b83d9"
+      "generated_at": "2026-10-28T03:12:05+00:00",
+      "source_revision": "64bd2a6c62ee24115b007ed6973dfdc5e5f66521"
     },
     "schema_version": 1,
-    "sha256": "a4df2fb32afb3024f9e03c6b5b9a65767f0b403cb623d81cb80e27597409e513",
+    "sha256": "906b1f54c6b892f054d7ef6cf73c34027d3192be98b837347f694e2042e9fced",
     "source_path": "deploy/monitoring/manifest/metric-manifest.json"
   },
   "release_snapshot": {
@@ -3955,7 +4027,7 @@
         "path": "cicd/kv-sglang-attest"
       },
       {
-        "object_id": "0317fb6f6da9125abb0aa77121d6aca5e31cbee6",
+        "object_id": "66ad59d2e889ff325a86075fba7c0ccd26313194",
         "path": "cicd/sockmap-fullproxy"
       },
       {
@@ -4041,8 +4113,8 @@
     ]
   },
   "source": {
-    "commit": "ef8813af4d75dc3db0bc5a9d7e02e9abd3e46bd1",
-    "ebpf_submodule_commit": "f515ab5aeed8e8643f08906d0a90e9a2b893ba8d",
+    "commit": "c7b4af87f1eda7db1a6667aa797e1d3b389d21cc",
+    "ebpf_submodule_commit": "f00d8b3f7de5b70e3971167a791ce5a3cf5d78e4",
     "release_commit": "f08b18beda587217265c9ba6419159119914795c",
     "release_tag": "v0.9.8.9-rc.1",
     "release_tag_object": "db28353e50f7031157187fdd2250d1098c97963a",
@@ -4199,6 +4271,9 @@
               "format": "int64",
               "type": "integer"
             },
+            "client_op_id": {
+              "type": "string"
+            },
             "default_objective": {
               "type": "string"
             },
@@ -4245,6 +4320,9 @@
             },
             "raw_key": {
               "type": "string"
+            },
+            "reused": {
+              "type": "boolean"
             }
           },
           "required": [
@@ -4270,6 +4348,9 @@
             "burst_size": {
               "format": "int64",
               "type": "integer"
+            },
+            "client_op_id": {
+              "type": "string"
             },
             "created_at": {
               "format": "date-time",
@@ -8211,6 +8292,32 @@
                 },
                 "egress": {
                   "type": "boolean"
+                },
+                "eppEndpoint": {
+                  "type": "string",
+                  "x-nullable": false
+                },
+                "eppFailureMode": {
+                  "default": "FailClose",
+                  "enum": [
+                    "FailOpen",
+                    "FailClose"
+                  ],
+                  "type": "string",
+                  "x-nullable": false
+                },
+                "eppPlaintext": {
+                  "default": false,
+                  "type": "boolean",
+                  "x-nullable": false
+                },
+                "eppTimeoutMs": {
+                  "default": 0,
+                  "format": "int64",
+                  "maximum": 600000,
+                  "minimum": 0,
+                  "type": "integer",
+                  "x-nullable": false
                 },
                 "externalIP": {
                   "type": "string",
@@ -12415,7 +12522,7 @@
             ],
             "responses": {
               "201": {
-                "description": "Created",
+                "description": "Created (reused=true when a retry converged on the row an earlier request with the same client_op_id created)",
                 "schema": {
                   "$ref": "#/definitions/ApiKeyCreateResponse"
                 }
@@ -12439,7 +12546,7 @@
                 }
               },
               "409": {
-                "description": "Imported API key is already registered",
+                "description": "Imported API key is already registered; or, with a client_op_id, the key this operation created has already authenticated (code api_key_already_delivered, the key_id in the result): its secret is not delivered again. Delete and recreate the key to issue a new one. A concurrent create carrying the same client_op_id is also 409: read the key back.",
                 "schema": {
                   "$ref": "#/definitions/Error"
                 }
@@ -12457,7 +12564,7 @@
                 }
               },
               "504": {
-                "description": "Write outcome unknown (code ai_key_store_outcome_unknown). The statement was handed to the API-key store and the store did not answer within the operation budget; the store may still apply it when it resumes. Not a 503: nothing says the write did not happen. Read the resource back (GET) before deciding whether to retry; a blind retry of a non-idempotent write can create a second row.",
+                "description": "Write outcome unknown (code ai_key_store_outcome_unknown). The statement was handed to the API-key store and the store did not answer within the operation budget; the store may still apply it when it resumes. Not a 503: nothing says the write did not happen. Read the resource back (GET, filtering the listing by tenant_id and matching client_op_id) before deciding whether to retry; a blind retry without a client_op_id can create a second row, a retry with the same client_op_id converges on one.",
                 "schema": {
                   "$ref": "#/definitions/Error"
                 }
@@ -25283,7 +25390,7 @@
           "type": "apiKey"
         }
       },
-      "sha256": "7b6b5732ee4f28c72d097fba21cc6eec02fab8645934688bb32005dbf29deda4",
+      "sha256": "a877290ac906cce5847d9647fe848b3e547f6745ef09fc57725fb42c2ede4945",
       "source_path": "api/swagger.yml"
     },
     {

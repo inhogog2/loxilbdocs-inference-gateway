@@ -7,17 +7,17 @@ revision. It does **not** prove that every family is present in a particular
 deployment: feature activation, traffic, build tags, hardware, and runtime
 configuration still determine whether a series is emitted.
 
-- Gateway source commit: `ef8813af4d75dc3db0bc5a9d7e02e9abd3e46bd1`
-- Selected Gateway eBPF submodule commit: `f515ab5aeed8e8643f08906d0a90e9a2b893ba8d`
+- Gateway source commit: `c7b4af87f1eda7db1a6667aa797e1d3b389d21cc`
+- Selected Gateway eBPF submodule commit: `f00d8b3f7de5b70e3971167a791ce5a3cf5d78e4`
 - Comparison release: `v0.9.8.9-rc.1` at `f08b18beda587217265c9ba6419159119914795c`
 - Comparison release eBPF submodule commit: `5536a2117ad2ad1128900a0d808ad7dec2eee2b5`
 - Release manifest availability: **absent**
 - Manifest path: `deploy/monitoring/manifest/metric-manifest.json`
-- Manifest SHA-256: `a4df2fb32afb3024f9e03c6b5b9a65767f0b403cb623d81cb80e27597409e513`
-- Embedded manifest source revision: `82bbeaccc2b78f35149f0637f257f0bba10b83d9`
-- Embedded manifest generation time: `2026-10-26T11:50:00+00:00`
+- Manifest SHA-256: `906b1f54c6b892f054d7ef6cf73c34027d3192be98b837347f694e2042e9fced`
+- Embedded manifest source revision: `64bd2a6c62ee24115b007ed6973dfdc5e5f66521`
+- Embedded manifest generation time: `2026-10-28T03:12:05+00:00`
 - Manifest schema version: `1`
-- Release-scope families: **292**
+- Release-scope families: **298**
 - Raw writer paths and evidence prose are intentionally not copied into this public catalog.
 
 The table below is therefore a selected-source catalog, not a claim
@@ -30,9 +30,10 @@ Release packaging and runtime emission require separate qualification.
 | Status | Meaning |
 | --- | --- |
 | `verified-runtime` (70) | writer plus recorded runtime evidence in the upstream manifest |
-| `verified-static` (68) | writer verified by static or unit evidence; no runtime claim |
-| `conditional-with-proven-writer` (74) | writer exists but the family appears only when its feature path is active |
+| `verified-static` (69) | writer verified by static or unit evidence; no runtime claim |
+| `conditional-with-proven-writer` (77) | writer exists but the family appears only when its feature path is active |
 | `writer-mapped` (80) | writer source is mapped; runtime emission was not verified |
+| `definition-only` (2) | registered without a separate writer, for example a gauge computed when Prometheus scrapes it; no runtime claim |
 
 A writer or registration point is source evidence, not deployment evidence.
 `verified-runtime` records upstream runtime evidence for that family, but this
@@ -80,6 +81,11 @@ Combined codes such as `DP+V` require both conditions.
 | `loxilb_ai_admission_warming_endpoints` | `gauge` | `service`, `pool` | `C` | `gateway-default` | `verified-static` |
 | `loxilb_ai_class_config_lkg_intervals_total` | `counter` | none | `C` | `gateway-default` | `verified-static` |
 | `loxilb_ai_engine_info` | `gauge` | `service`, `engine` | `V` | `gateway-default` | `conditional-with-proven-writer` |
+| `loxilb_ai_epp_candidates_rejected_total` | `counter` | `reason` | `V` | `gateway-default` | `conditional-with-proven-writer` |
+| `loxilb_ai_epp_duration_seconds` | `histogram` | none | `E` | `gateway-default` | `conditional-with-proven-writer` |
+| `loxilb_ai_epp_inflight` | `gauge` | none | `E` | `gateway-default` | `definition-only` |
+| `loxilb_ai_epp_pending` | `gauge` | none | `E` | `gateway-default` | `definition-only` |
+| `loxilb_ai_epp_requests_total` | `counter` | `outcome` | `V` | `gateway-default` | `conditional-with-proven-writer` |
 | `loxilb_ai_fc_band_total` | `counter` | `service`, `band`, `outcome` | `C` | `gateway-default` | `verified-static` |
 | `loxilb_ai_fc_tenant_slots` | `gauge` | `service`, `kind` | `C` | `gateway-default` | `verified-static` |
 | `loxilb_ai_jwks_keys` | `gauge` | `profile` | `E` | `gateway-default` | `conditional-with-proven-writer` |
@@ -123,6 +129,7 @@ Combined codes such as `DP+V` require both conditions.
 | `loxilb_ai_requests_total` | `counter` | `model`, `tenant`, `status`, `outcome`, `cause` | `V` | `gateway-default` | `conditional-with-proven-writer` |
 | `loxilb_ai_reservation_clamped_total` | `counter` | `service`, `reason` | `V` | `gateway-default` | `verified-static` |
 | `loxilb_ai_route_host_missing_total` | `counter` | none | `E` | `gateway-default` | `conditional-with-proven-writer` |
+| `loxilb_ai_store_write_outcome_unknown_total` | `counter` | `plane` | `C` | `gateway-default` | `verified-static` |
 | `loxilb_ai_stream_early_bytes_closed_total` | `counter` | `service` | `V` | `gateway-default` | `verified-static` |
 | `loxilb_ai_token_quota_cold_open_total` | `counter` | none | `E` | `gateway-default` | `verified-runtime` |
 | `loxilb_ai_token_quota_denied_total` | `counter` | `tenant` | `V` | `gateway-default` | `verified-runtime` |
@@ -374,7 +381,7 @@ use values outside the frozen source contract.
 ## Source-declared label combinations
 
 Request outcomes, causes, P/D phases and fallback reasons are extracted from `api/prometheus/ai_metrics.go`
-at the Gateway commit above (source SHA-256: `a96d551066ffda3976c70c7ae89c2d7cb7fd82e6203c4e87ce64e8ab7427017a`).
+at the Gateway commit above (source SHA-256: `ffb660a1c45b4034e5b8cc12bfb2faa835004e7afe3ed3e4a96a7a58b74b9017`).
 The validator also rejects selectors that match none of these combinations.
 Other enums above are reviewed documentation constants. Empty cause is written as `(empty)`.
 

@@ -28,6 +28,7 @@ STATUS = {
     "verified-static": "writer verified by static or unit evidence; no runtime claim",
     "conditional-with-proven-writer": "writer exists but the family appears only when its feature path is active",
     "writer-mapped": "writer source is mapped; runtime emission was not verified",
+    "definition-only": "registered without a separate writer, for example a gauge computed when Prometheus scrapes it; no runtime claim",
 }
 
 
