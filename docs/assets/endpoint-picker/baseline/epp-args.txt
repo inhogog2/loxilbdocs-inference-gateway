@@ -1,0 +1,2 @@
+ghcr.io/llm-d/llm-d-router-endpoint-picker:main
+["--pool-name","pd-disaggregation","--pool-namespace","llm-d-pd-disaggregation","--pool-group","inference.networking.k8s.io","--zap-encoder","json","--config-file","/config/pd-config.yaml","--grpc-health-port","9003","--v=2","--tracing=false"]

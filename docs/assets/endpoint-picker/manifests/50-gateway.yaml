@@ -1,0 +1,61 @@
+# kube-loxilb path (guide section 4.2): the InferencePool exposed through a Gateway listener.
+#
+# kube-loxilb (--gatewayAPI --inferenceExtension) watches these three objects plus the pool in
+# 30-inferencepool.yaml and creates the LoadBalancer Service "pd-disaggregation-inference", which it
+# then programs on loxilb-igw as the same rule deploy/epp/rule.sh would create. Where each value comes from:
+#
+#   rule / Service field                        source
+#   ------------------------------------------- ---------------------------------------------
+#   namespace                                   the InferencePool's namespace
+#   externalIP                                  Gateway spec.addresses, or an address from --cidrPools
+#   port                                        Gateway listener port
+#   targetPort                                  InferencePool spec.targetPorts[0]
+#   endpoints (pod selector)                    InferencePool spec.selector.matchLabels
+#   loxilb.io/epp-endpoint <ClusterIP>:9002     endpointPickerRef (name, port) -> Service ClusterIP:port
+#   loxilb.io/epp-failure-mode                  endpointPickerRef.failureMode
+#   loxilb.io/lbmode fullproxy                  kube-loxilb's default for a pool
+#   loxilb.io/usepodnetwork "yes"               always set by kube-loxilb
+#   loadBalancerClass loxilb.io/loxilb          kube-loxilb --loxilbLoadBalancerClass (default)
+#
+# Prerequisites: kube-loxilb running with --gatewayAPI --inferenceExtension; Gateway API CRDs installed.
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: loxilb-gc
+spec:
+  controllerName: loxilb.io/loxilb
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: inference-gw
+  namespace: llm-d-pd-disaggregation
+spec:
+  gatewayClassName: loxilb-gc
+  # No addresses: kube-loxilb assigns one from --cidrPools (the gateway node's IP in this setup).
+  # To pin one:
+  # addresses:
+  #   - type: IPAddress
+  #     value: 192.0.2.10
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 8080
+      allowedRoutes:
+        namespaces:
+          from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: llm-route
+  namespace: llm-d-pd-disaggregation
+spec:
+  parentRefs:
+    - name: inference-gw
+      sectionName: http
+  rules:
+    - backendRefs:
+        - group: inference.networking.k8s.io
+          kind: InferencePool
+          name: pd-disaggregation

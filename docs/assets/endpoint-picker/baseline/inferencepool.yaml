@@ -1,0 +1,36 @@
+apiVersion: v1
+items:
+- apiVersion: inference.networking.k8s.io/v1
+  kind: InferencePool
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: pd-disaggregation
+      meta.helm.sh/release-namespace: llm-d-pd-disaggregation
+    creationTimestamp: "2026-10-13T02:03:44Z"
+    generation: 13
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: pd-disaggregation-epp
+      app.kubernetes.io/version: v0
+    name: pd-disaggregation
+    namespace: llm-d-pd-disaggregation
+    resourceVersion: "409890"
+    uid: 76af715d-3eeb-4c4a-a422-c7978a21ffed
+  spec:
+    appProtocol: http
+    endpointPickerRef:
+      failureMode: FailOpen
+      group: ""
+      kind: Service
+      name: pd-disaggregation-epp
+      port:
+        number: 9002
+    selector:
+      matchLabels:
+        llm-d.ai/guide: pd-disaggregation
+    targetPorts:
+    - number: 8000
+  status: {}
+kind: List
+metadata:
+  resourceVersion: ""

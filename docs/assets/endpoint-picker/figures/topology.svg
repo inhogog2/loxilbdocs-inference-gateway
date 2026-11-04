@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="610" viewBox="0 0 760 610" role="img" aria-label="Test topology. A load generator on the control-plane node sends HTTP requests to the loxilb-igw VIP. loxilb-igw calls the Endpoint Picker over ext_proc gRPC on port 9002, receives the chosen endpoint, and forwards the request to that vLLM pod on one of three GPU workers, each with one A100 and one vLLM pod serving Qwen3-32B-FP8 on port 8000. The InferencePool selects the vLLM pods for the Endpoint Picker. Measurement points: loxilb-igw metrics on port 11111, Endpoint Picker request logs, and vLLM metrics on port 8000." font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<title>Test topology. A load generator on the control-plane node sends HTTP requests to the loxilb-igw VIP. loxilb-igw calls the Endpoint Picker over ext_proc gRPC on port 9002, receives the chosen endpoint, and forwards the request to that vLLM pod on one of three GPU workers, each with one A100 and one vLLM pod serving Qwen3-32B-FP8 on port 8000. The InferencePool selects the vLLM pods for the Endpoint Picker. Measurement points: loxilb-igw metrics on port 11111, Endpoint Picker request logs, and vLLM metrics on port 8000.</title><rect width="760" height="610" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="600" fill="#0b0b0b">Test topology: one Kubernetes cluster, one gateway, one Endpoint Picker, three GPU workers</text>
+<text x="24" y="47" font-size="12" fill="#52514e">Numbered arrows are the per-request path. Dotted lines are control and observation paths. Addresses as measured on 2026-10-15.</text>
+<rect x="24" y="70" width="266" height="330" rx="6" fill="none" stroke="#c9c8c3" stroke-width="1"/>
+<text x="36" y="88" font-size="11" fill="#52514e" letter-spacing="0.06em">CONTROL-PLANE NODE  192.0.2.10</text>
+<rect x="40" y="100" width="234" height="82" rx="5" fill="#f1f0ec"/>
+<text x="52" y="120" font-size="12.5" font-weight="600" fill="#0b0b0b">Load generator</text>
+<text x="52" y="138" font-size="11.5" fill="#52514e">kvbench.py  /  guidellm 0.8.1</text>
+<text x="52" y="153" font-size="11.5" fill="#52514e">sequential multi-turn conversations</text>
+<text x="52" y="168" font-size="11.5" fill="#52514e">sends to the VIP, reads metrics</text>
+<rect x="40" y="230" width="234" height="154" rx="5" fill="#e9eef7"/>
+<text x="52" y="250" font-size="12.5" font-weight="600" fill="#0b0b0b">loxilb-igw  (DaemonSet pod)</text>
+<text x="52" y="268" font-size="11.5" fill="#52514e">VIP 192.0.2.10:8082 -&gt; rule</text>
+<text x="52" y="283" font-size="11.5" fill="#52514e">eppEndpoint 203.0.113.6:9002 (TLS)</text>
+<text x="52" y="298" font-size="11.5" fill="#52514e">eppFailureMode FailClose | FailOpen</text>
+<text x="52" y="313" font-size="11.5" fill="#52514e">eppTimeoutMs 3000</text>
+<text x="52" y="328" font-size="11.5" fill="#52514e">sel 0 = round robin, 8 = consistent hash</text>
+<text x="52" y="343" font-size="11.5" fill="#52514e">eBPF L4 + L7 socket proxy, no sidecar</text>
+<rect x="350" y="100" width="176" height="82" rx="5" fill="#f1f0ec"/>
+<text x="362" y="120" font-size="12.5" font-weight="600" fill="#0b0b0b">InferencePool</text>
+<text x="362" y="138" font-size="11.5" fill="#52514e">pd-disaggregation</text>
+<text x="362" y="153" font-size="11.5" fill="#52514e">selector llm-d.ai/role=aggregated</text>
+<text x="362" y="168" font-size="11.5" fill="#52514e">targetPort 8000</text>
+<rect x="350" y="230" width="176" height="154" rx="5" fill="#f1f0ec"/>
+<text x="362" y="250" font-size="12.5" font-weight="600" fill="#0b0b0b">Endpoint Picker</text>
+<text x="362" y="268" font-size="11.5" fill="#52514e">pd-disaggregation-epp</text>
+<text x="362" y="283" font-size="11.5" fill="#52514e">ext_proc gRPC :9002</text>
+<text x="362" y="298" font-size="11.5" fill="#52514e">prefix-cache-affinity-filter</text>
+<text x="362" y="313" font-size="11.5" fill="#52514e">token-load-scorer</text>
+<text x="362" y="328" font-size="11.5" fill="#52514e">active-request-scorer</text>
+<text x="362" y="343" font-size="11.5" fill="#52514e">max-score-picker</text>
+<rect x="566" y="100" width="170" height="92" rx="5" fill="#f1f0ec"/>
+<text x="578" y="120" font-size="12.5" font-weight="600" fill="#0b0b0b">GPU worker 1</text>
+<text x="578" y="138" font-size="11.5" fill="#52514e">1 x A100 80GB</text>
+<text x="578" y="153" font-size="11.5" fill="#52514e">vLLM v0.30, Qwen3-32B-FP8</text>
+<text x="578" y="168" font-size="11.5" fill="#52514e">pod 198.51.100.11:8000</text>
+<text x="578" y="183" font-size="11.5" fill="#52514e">prefix cache, KV events :5557</text>
+<rect x="566" y="200" width="170" height="92" rx="5" fill="#f1f0ec"/>
+<text x="578" y="220" font-size="12.5" font-weight="600" fill="#0b0b0b">GPU worker 2</text>
+<text x="578" y="238" font-size="11.5" fill="#52514e">1 x A100 80GB</text>
+<text x="578" y="253" font-size="11.5" fill="#52514e">vLLM v0.30, Qwen3-32B-FP8</text>
+<text x="578" y="268" font-size="11.5" fill="#52514e">pod 198.51.100.13:8000</text>
+<text x="578" y="283" font-size="11.5" fill="#52514e">prefix cache, KV events :5557</text>
+<rect x="566" y="300" width="170" height="92" rx="5" fill="#f1f0ec"/>
+<text x="578" y="320" font-size="12.5" font-weight="600" fill="#0b0b0b">GPU worker 3</text>
+<text x="578" y="338" font-size="11.5" fill="#52514e">1 x A100 80GB</text>
+<text x="578" y="353" font-size="11.5" fill="#52514e">vLLM v0.30, Qwen3-32B-FP8</text>
+<text x="578" y="368" font-size="11.5" fill="#52514e">pod 198.51.100.12:8000</text>
+<text x="578" y="383" font-size="11.5" fill="#52514e">prefix cache, KV events :5557</text>
+<line x1="70" y1="182" x2="70" y2="230" stroke="#2a78d6" stroke-width="1.6"/>
+<path d="M70.0,230.0 L66.2,223.0 L73.8,223.0 Z" fill="#2a78d6"/>
+<circle cx="86" cy="206" r="8" fill="#2a78d6"/>
+<text x="86" y="209.5" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">1</text>
+<text x="100" y="210" font-size="11" fill="#0b0b0b">POST /v1/chat/completions</text>
+<line x1="274" y1="272" x2="350" y2="272" stroke="#eb6834" stroke-width="1.6"/>
+<path d="M350.0,272.0 L343.0,275.8 L343.0,268.2 Z" fill="#eb6834"/>
+<circle cx="312" cy="272" r="8" fill="#eb6834"/>
+<text x="312" y="275.5" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">2</text>
+<text x="312" y="260" font-size="10.5" fill="#0b0b0b" text-anchor="middle">ext_proc</text>
+<text x="312" y="294" font-size="10.5" fill="#52514e" text-anchor="middle">headers, body</text>
+<line x1="350" y1="340" x2="274" y2="340" stroke="#eb6834" stroke-width="1.6"/>
+<path d="M274.0,340.0 L281.0,336.2 L281.0,343.8 Z" fill="#eb6834"/>
+<circle cx="312" cy="340" r="8" fill="#eb6834"/>
+<text x="312" y="343.5" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">3</text>
+<text x="312" y="328" font-size="10.5" fill="#0b0b0b" text-anchor="middle">chosen</text>
+<text x="312" y="362" font-size="10.5" fill="#52514e" text-anchor="middle">endpoint</text>
+<path d="M274,246 L300,246 L300,208 L546,208 L546,146 L556,146" fill="none" stroke="#2a78d6" stroke-width="1.6"/>
+<line x1="556" y1="146" x2="566" y2="146" stroke="#2a78d6" stroke-width="1.6"/>
+<path d="M566.0,146.0 L559.0,149.8 L559.0,142.2 Z" fill="#2a78d6"/>
+<circle cx="300" cy="208" r="8" fill="#2a78d6"/>
+<text x="300" y="211.5" font-size="10" font-weight="600" fill="#ffffff" text-anchor="middle">4</text>
+<text x="314" y="203" font-size="11" fill="#0b0b0b">to the chosen pod</text>
+<line x1="438" y1="182" x2="438" y2="230" stroke="#c9c8c3" stroke-width="1.6" stroke-dasharray="4 3"/>
+<path d="M438.0,230.0 L434.2,223.0 L441.8,223.0 Z" fill="#c9c8c3"/>
+<text x="446" y="224" font-size="10.5" fill="#52514e">pool members</text>
+<line x1="526" y1="128" x2="566" y2="146" stroke="#c9c8c3" stroke-width="1.2" stroke-dasharray="4 3"/>
+<path d="M566.0,146.0 L558.0,146.6 L561.2,139.6 Z" fill="#c9c8c3"/>
+<line x1="526" y1="128" x2="566" y2="246" stroke="#c9c8c3" stroke-width="1.2" stroke-dasharray="4 3"/>
+<path d="M566.0,246.0 L560.1,240.6 L567.4,238.1 Z" fill="#c9c8c3"/>
+<line x1="526" y1="128" x2="566" y2="346" stroke="#c9c8c3" stroke-width="1.2" stroke-dasharray="4 3"/>
+<path d="M566.0,346.0 L561.0,339.8 L568.5,338.4 Z" fill="#c9c8c3"/>
+<text x="530" y="94" font-size="10.5" fill="#52514e">selects pods</text>
+<line x1="24" y1="418" x2="736" y2="418" stroke="#e6e5e1" stroke-width="1"/>
+<text x="24" y="440" font-size="12.5" font-weight="600" fill="#0b0b0b">Where each number in this post is read from</text>
+<rect x="24" y="452" width="6" height="30" rx="2" fill="#2a78d6"/>
+<text x="40" y="464" font-size="12" font-weight="600" fill="#0b0b0b">loxilb-igw  :11111/netlox/v1/metrics</text>
+<text x="40" y="480" font-size="11.5" fill="#52514e">loxilb_ai_epp_requests_total (requests submitted to the EPP), log line [EPP] sid -&gt; ip (destination)</text>
+<rect x="24" y="496" width="6" height="30" rx="2" fill="#eb6834"/>
+<text x="40" y="508" font-size="12" font-weight="600" fill="#0b0b0b">Endpoint Picker log  (--v=4)</text>
+<text x="40" y="524" font-size="11.5" fill="#52514e">one &quot;Request handled&quot; line per request with x-request-id and the chosen endpoint</text>
+<rect x="24" y="540" width="6" height="30" rx="2" fill="#1baf7a"/>
+<text x="40" y="552" font-size="12" font-weight="600" fill="#0b0b0b">vLLM  :8000/metrics on every pod</text>
+<text x="40" y="568" font-size="11.5" fill="#52514e">vllm:request_success_total (which pod served it), vllm:prefix_cache_hits_total / queries_total (reuse)</text>
+</svg>
