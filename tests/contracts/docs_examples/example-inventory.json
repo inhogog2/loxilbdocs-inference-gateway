@@ -2296,6 +2296,40 @@
     },
     {
       "evidence": "shell-syntax-only",
+      "id": "02cea34408e547fa148d",
+      "language": "bash",
+      "line": 19,
+      "path": "docs/assets/endpoint-picker/manifests/README.md",
+      "quality_contract": {
+        "cleanup": false,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": false,
+        "prerequisites": false,
+        "validation": false
+      },
+      "sha256": "c95e4924d74436711dbece1a98d84c3350d711599e6212674c1c469a8ceb2315",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "unexecuted-example",
+      "id": "800d9039dea53eec2460",
+      "language": "plain",
+      "line": 22,
+      "path": "docs/assets/endpoint-picker/repro/README.md",
+      "quality_contract": {
+        "cleanup": false,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": false,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "ab478313b2d5a325d94557f2719972ebe7525d5c7d8d766418781ecccd10516e",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "shell-syntax-only",
       "id": "25deab5d19d9382fea23",
       "language": "bash",
       "line": 71,
@@ -9118,6 +9152,618 @@
     },
     {
       "evidence": "explicit-public-classification",
+      "id": "96958f80b6c8e6551b71",
+      "language": "bash",
+      "line": 34,
+      "path": "docs/use-cases/endpoint-picker/gateway.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "b98755a85a174406565ee21fa8375171d53805733507c20b3f05cdaf56505c19",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "b26c809bb222aa51cf31",
+      "language": "plain",
+      "line": 39,
+      "path": "docs/use-cases/endpoint-picker/gateway.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "75d88ca91d2210987b98770d3ee064c4860d3f82a45cc40c2042d8779174a16c",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "41c7814e790c8d79c313",
+      "language": "bash",
+      "line": 45,
+      "path": "docs/use-cases/endpoint-picker/gateway.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "f843c2a6a382e2541d2726f70a741c8a0954074cbe7180f8acc025dd17627c82",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "d7befb19390924a04347",
+      "language": "bash",
+      "line": 30,
+      "path": "docs/use-cases/endpoint-picker/harness.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "a34e0c6fc6c0a14628457659f704eb31cb9370a341c7c9ed022dcf928a8acadd",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "638297b74e87e728be8d",
+      "language": "bash",
+      "line": 45,
+      "path": "docs/use-cases/endpoint-picker/harness.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "4a942fab9664a30759f84fc0574cd5993e516454b46263c711ea40356a52cef0",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "7dd8a0805bc744baf8d5",
+      "language": "plain",
+      "line": 30,
+      "path": "docs/use-cases/endpoint-picker/index.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "b98dd4dea28a1a987393e2dabccc11a78aa9480ee7f3ecedf328782f2977c416",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "f210c2c53824311034bb",
+      "language": "mermaid",
+      "line": 60,
+      "path": "docs/use-cases/endpoint-picker/measurements.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "297e10d7b8fa0f31b1c473edfc228156765b5ff8bfe70a2c2e35c71dd7d075f0",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "53e540dbecfe63ced64e",
+      "language": "json",
+      "line": 130,
+      "path": "docs/use-cases/endpoint-picker/measurements.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "213cb50521f96256ca991d930b4882be39f751518d3e2ca0240175cc1f260b7c",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "7e1f3e2e3d6389c62f15",
+      "language": "plain",
+      "line": 134,
+      "path": "docs/use-cases/endpoint-picker/measurements.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "21c49d1268f2572ea43c2981b5c9574e767c10b94c8daf375975d100d515a751",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "a9a6511724d5d378975e",
+      "language": "bash",
+      "line": 149,
+      "path": "docs/use-cases/endpoint-picker/measurements.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "d5cbe2c6a9323887b9038af8086d1694fc10f4a39a87c5011f2d3452cb72ab27",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "61544f58607584b6926d",
+      "language": "bash",
+      "line": 157,
+      "path": "docs/use-cases/endpoint-picker/measurements.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "e5e856bd6edb37b75c3084e87d6e76c5a6f323b0cf3624d3e267515707156db1",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "db397f544916f20b59fb",
+      "language": "bash",
+      "line": 30,
+      "path": "docs/use-cases/endpoint-picker/model-servers.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "dde7fdf5b7706b0b66fc489269a02b6a9b9a9885bc07b6fa0fb5b991749afdf3",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "6a70981eb8de3eb0f882",
+      "language": "bash",
+      "line": 48,
+      "path": "docs/use-cases/endpoint-picker/model-servers.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "29c95006c68bce7984d0eb809122253d012ddf5e3308ea9f2fb9fa80064f1699",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "e318aaaa0fdbfc5d1048",
+      "language": "plain",
+      "line": 51,
+      "path": "docs/use-cases/endpoint-picker/model-servers.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "66b994af0afa9f0302cb73bf9f0f53f5a5c04c72c693062c3f6e8c1e7250a7c4",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "186d32a5828b5ccdbabc",
+      "language": "bash",
+      "line": 57,
+      "path": "docs/use-cases/endpoint-picker/model-servers.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "6ff873656b41027ba34512ca32573b271c38f7d2dd0c40c1b77b9b7871b8e633",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "2dd4028bfaec56310a6b",
+      "language": "plain",
+      "line": 62,
+      "path": "docs/use-cases/endpoint-picker/model-servers.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "00f9fbd0b2b8a2abec658f3bbff99cdf23d0add5ed8eeba23b67f6591be56ef3",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "c7c337603dc4d97488de",
+      "language": "bash",
+      "line": 38,
+      "path": "docs/use-cases/endpoint-picker/modes.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "d2b797d982e613159e6d5bc55dca78e0b8c8a567bb18cb922c8b301dbfb179a4",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "98bbbf606c09a8dd86ad",
+      "language": "bash",
+      "line": 39,
+      "path": "docs/use-cases/endpoint-picker/prepare.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "dcd5b7f114a15e0fcf1243b6c85dec4f8539c71b326da345cd07f70c6777e061",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "55785d4ca8d737818403",
+      "language": "bash",
+      "line": 49,
+      "path": "docs/use-cases/endpoint-picker/prepare.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "55c8c3078265a82e2021e39db5bdd1bf04298249c0338062eab2db1f486ecf1b",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "de54032617c73ae16d62",
+      "language": "bash",
+      "line": 59,
+      "path": "docs/use-cases/endpoint-picker/prepare.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "bc4dce0ef3474edd9f409504077d6a5ba3b8f906874c4f2b3d5d27739308794b",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "a81f2eef9f549d84a748",
+      "language": "bash",
+      "line": 42,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "bcbfb4185b3d79cf2840c9b99cc18d3e419214cb44be0946fce6ab76b8e18f61",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "174e0acb5281a940566c",
+      "language": "json",
+      "line": 50,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "acb32e263b8e04164b576a0b3cc774c9988276023427e90d904963cb22210c4c",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "83867413dbdec8502cf5",
+      "language": "bash",
+      "line": 80,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "ee4af94c4f24f07f3aeb4cace1cf18d2fd41574c7dc01974c841673641f4d3d6",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "fdc9e8db53331c84c389",
+      "language": "bash",
+      "line": 93,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "7e35b66d84dc44ab5065c0e915f0f4a66d81bb23702c839f3f90402bd0f82c51",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "6cd00d3faa20682aa719",
+      "language": "plain",
+      "line": 96,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "2a05ed343a9989e2e9b3cda5151877b8a38977d50042c39ba4fcba8ea8f0f085",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "58466e4d8f05464a23de",
+      "language": "bash",
+      "line": 106,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "569bfae9f4185e4192026b6e2f1ebd61f4ca3db96cfb7dcd0881b3eb071e300f",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "0263d86950b569bb8218",
+      "language": "yaml",
+      "line": 120,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "fb94f9b15f2506f09955bf31d0bc55d3505512ebd11c57690255c998c1277a61",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "7d0399baf416de284e8c",
+      "language": "bash",
+      "line": 133,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "fb69850cefdd9326d6c4a53bd624e62833ed03178525acca80eca390c3a352b1",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "7cfc33ff380acf3aa613",
+      "language": "yaml",
+      "line": 137,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "2d29a450aa012d50a3c88ee3bebb296b62d6b289532fcfbdbc25b5a92f95d8f0",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "1ab1ee0430d99b8db90e",
+      "language": "yaml",
+      "line": 146,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "aebf02fd62a480cbaf194e138c1ee775510f33cd905f77dc80cc4c0b0da9d260",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "99f1023c28da9f61f5c6",
+      "language": "yaml",
+      "line": 168,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "bd0eaba7d8382bf52b74b9c1128e6957a94b90719a11995d4b4ebaf759421b7a",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "cef99f8de5d5987af431",
+      "language": "bash",
+      "line": 204,
+      "path": "docs/use-cases/endpoint-picker/rule.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "fd56cfa947ca42e78550425c1d634a56a28e868392e87615f39ce1f26f2389b0",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "e79ff0c9df3f1ab4a61f",
+      "language": "bash",
+      "line": 30,
+      "path": "docs/use-cases/endpoint-picker/smoke-test.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "12b47f041f5d3d4e07d0acbe4647acab9a9ae0f919d44e61889752d2c14060b4",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "ec7681e83a213ddad3b2",
+      "language": "bash",
+      "line": 43,
+      "path": "docs/use-cases/endpoint-picker/smoke-test.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "abf12b14b0d5c5e3607132f387bcf76e82c30c41832da4390d0920398d1a65ff",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "aa11c5081d2de3713408",
+      "language": "plain",
+      "line": 54,
+      "path": "docs/use-cases/endpoint-picker/smoke-test.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "93eaffb769473b72d2d40be372d28faab02f75ea2ad8efde6c84227772f43cc3",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
+      "id": "90e44a5e999e359ced83",
+      "language": "bash",
+      "line": 52,
+      "path": "docs/use-cases/endpoint-picker/troubleshooting.md",
+      "quality_contract": {
+        "cleanup": true,
+        "diagnosis": false,
+        "exact_command": true,
+        "expected_result": true,
+        "prerequisites": true,
+        "validation": false
+      },
+      "sha256": "2ab6aad01ec93584ca793831c338952a382826714694a1c59423b949b039a2cc",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "explicit-public-classification",
       "id": "61dd5f7e80763e264896",
       "language": "bash",
       "line": 96,
@@ -15501,6 +16147,23 @@
         "validation": false
       },
       "sha256": "234164d9307caf1a2efa09ba7179609385f4f8d7a0dd4441816e802f88cc56c1",
+      "status": "illustrative-only"
+    },
+    {
+      "evidence": "visual-explanation",
+      "id": "a7b6bfd0fd0dd53c71aa",
+      "language": "mermaid",
+      "line": 2,
+      "path": "snippets/use-cases/topology/endpoint-picker.md",
+      "quality_contract": {
+        "cleanup": false,
+        "diagnosis": false,
+        "exact_command": false,
+        "expected_result": false,
+        "prerequisites": false,
+        "validation": false
+      },
+      "sha256": "5bb22e3dda66a9e04add35b1385b295bbf2c49014053048759e12aee0c728c91",
       "status": "illustrative-only"
     },
     {
