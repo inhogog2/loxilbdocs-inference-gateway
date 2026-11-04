@@ -196,6 +196,21 @@ nav:
         - Open Qualification: use-cases/model-engine-standard/qualification-todo.md
         - SGLang Wire Compatibility: use-cases/model-engine-standard/sglang-compatibility.md
         - Catalog & Installer Compatibility: use-cases/model-engine-standard/catalog-installer.md
+  - Endpoint Picker Use-Cases:
+    - 1. Overview & Topology: use-cases/endpoint-picker/index.md
+    - 2. Preparation:
+      - Prerequisites & Downloads: use-cases/endpoint-picker/prepare.md
+      - Model Servers & Endpoint Picker: use-cases/endpoint-picker/model-servers.md
+      - Deploy loxilb-igw: use-cases/endpoint-picker/gateway.md
+    - 3. Walkthroughs:
+      - Create the EPP Rule: use-cases/endpoint-picker/rule.md
+      - Smoke Test: use-cases/endpoint-picker/smoke-test.md
+      - Switching Routing Modes: use-cases/endpoint-picker/modes.md
+    - 4. Verification & Cleanup:
+      - Observability: use-cases/endpoint-picker/observability.md
+      - Reproduction Harness: use-cases/endpoint-picker/harness.md
+      - Troubleshooting & Teardown: use-cases/endpoint-picker/troubleshooting.md
+      - Measurements: use-cases/endpoint-picker/measurements.md
   - Security:
       - Management API Authentication: security/management-api-authentication.md
       - Data-Plane Authentication and JWT: security/data-plane-jwt-auth.md

@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Endpoint Picker use-case family: deploy vLLM, the Gateway API Inference
+  Extension Endpoint Picker and loxilb-igw from downloadable manifests, create
+  the EPP rule directly or through kube-loxilb (`InferencePool` + `HTTPRoute`),
+  a four-point smoke test, switching between EPP, CHWBL and round robin,
+  observability, a reproduction harness, troubleshooting and teardown, plus the
+  measurements of the three routing modes (cache reuse, TTFT, throughput,
+  failure modes) with the raw results archive.
 - Backend TLS Verification and Client Certificates page: certificate registry
   entries by usage (`ca`, `client`), `mtls_backend.verify_server_cert`,
   `backend_ca_cert_id`, `backend_client_cert_id`, `backend_tls_server_name`,
