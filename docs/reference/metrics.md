@@ -7,15 +7,15 @@ revision. It does **not** prove that every family is present in a particular
 deployment: feature activation, traffic, build tags, hardware, and runtime
 configuration still determine whether a series is emitted.
 
-- Gateway source commit: `c7b4af87f1eda7db1a6667aa797e1d3b389d21cc`
-- Selected Gateway eBPF submodule commit: `f00d8b3f7de5b70e3971167a791ce5a3cf5d78e4`
+- Gateway source commit: `b954a57582b6bb702b5bfa2606817ee77857ae5e`
+- Selected Gateway eBPF submodule commit: `b131098ebdbb573cdffb04379821f44e7106f087`
 - Comparison release: `v0.9.8.9-rc.1` at `f08b18beda587217265c9ba6419159119914795c`
 - Comparison release eBPF submodule commit: `5536a2117ad2ad1128900a0d808ad7dec2eee2b5`
 - Release manifest availability: **absent**
 - Manifest path: `deploy/monitoring/manifest/metric-manifest.json`
-- Manifest SHA-256: `906b1f54c6b892f054d7ef6cf73c34027d3192be98b837347f694e2042e9fced`
-- Embedded manifest source revision: `64bd2a6c62ee24115b007ed6973dfdc5e5f66521`
-- Embedded manifest generation time: `2026-10-28T03:12:05+00:00`
+- Manifest SHA-256: `acc2dba685bcf8a48f4eaa91ee3ab42d2b08524d3e89f9d25925683b2c654041`
+- Embedded manifest source revision: `8c7e03e26bb049073e5d67984c942b63c2c3846b`
+- Embedded manifest generation time: `2026-11-04T23:59:58+00:00`
 - Manifest schema version: `1`
 - Release-scope families: **298**
 - Raw writer paths and evidence prose are intentionally not copied into this public catalog.

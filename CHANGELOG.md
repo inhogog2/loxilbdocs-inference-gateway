@@ -48,6 +48,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Tracked Gateway contract refreshed from `c7b4af8` to `b954a57`: read-only EPP
+  connection state on a rule read (`eppState`, `eppStateSince`,
+  `eppLastError`), an EPP on a `pd_disagg_mode` rule now requires
+  `eppFailureMode=FailOpen`, regenerated metric manifest and a new eBPF pin;
+  generated reference pages and the verification-status tuple follow.
 - Load-balancer rules: what a `POST` for an existing rule does (which omitted
   fields a replace keeps, what is applied in place, what restarts), and the
   refusals of a create or a replace (`400` naming `externalIP` or

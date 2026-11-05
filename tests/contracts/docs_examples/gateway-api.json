@@ -3994,11 +3994,11 @@
       "source_path": "api/prometheus/ai_metrics.go"
     },
     "provenance": {
-      "generated_at": "2026-10-28T03:12:05+00:00",
-      "source_revision": "64bd2a6c62ee24115b007ed6973dfdc5e5f66521"
+      "generated_at": "2026-11-04T23:59:58+00:00",
+      "source_revision": "8c7e03e26bb049073e5d67984c942b63c2c3846b"
     },
     "schema_version": 1,
-    "sha256": "906b1f54c6b892f054d7ef6cf73c34027d3192be98b837347f694e2042e9fced",
+    "sha256": "acc2dba685bcf8a48f4eaa91ee3ab42d2b08524d3e89f9d25925683b2c654041",
     "source_path": "deploy/monitoring/manifest/metric-manifest.json"
   },
   "release_snapshot": {
@@ -4113,8 +4113,8 @@
     ]
   },
   "source": {
-    "commit": "c7b4af87f1eda7db1a6667aa797e1d3b389d21cc",
-    "ebpf_submodule_commit": "f00d8b3f7de5b70e3971167a791ce5a3cf5d78e4",
+    "commit": "b954a57582b6bb702b5bfa2606817ee77857ae5e",
+    "ebpf_submodule_commit": "b131098ebdbb573cdffb04379821f44e7106f087",
     "release_commit": "f08b18beda587217265c9ba6419159119914795c",
     "release_tag": "v0.9.8.9-rc.1",
     "release_tag_object": "db28353e50f7031157187fdd2250d1098c97963a",
@@ -8306,9 +8306,21 @@
                   "type": "string",
                   "x-nullable": false
                 },
+                "eppLastError": {
+                  "type": "string",
+                  "x-nullable": false
+                },
                 "eppPlaintext": {
                   "default": false,
                   "type": "boolean",
+                  "x-nullable": false
+                },
+                "eppState": {
+                  "type": "string",
+                  "x-nullable": false
+                },
+                "eppStateSince": {
+                  "type": "string",
                   "x-nullable": false
                 },
                 "eppTimeoutMs": {
@@ -25390,7 +25402,7 @@
           "type": "apiKey"
         }
       },
-      "sha256": "a877290ac906cce5847d9647fe848b3e547f6745ef09fc57725fb42c2ede4945",
+      "sha256": "e1b2dd48f9d0b7284a82992f0f38ac17b25aa6e55c1b4b155b4c8f35f9e36caf",
       "source_path": "api/swagger.yml"
     },
     {

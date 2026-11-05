@@ -8300,7 +8300,7 @@
       "sha256": "88a5a231032a5f9391ea3ac19de59a262f0816c6144a1b850065b8db40a61b5b"
     }
   ],
-  "gateway_commit": "c7b4af87f1eda7db1a6667aa797e1d3b389d21cc",
+  "gateway_commit": "b954a57582b6bb702b5bfa2606817ee77857ae5e",
   "operations": {
     "DELETE /audit/sinks/{name}": [],
     "DELETE /auth/users/{id}": [],
