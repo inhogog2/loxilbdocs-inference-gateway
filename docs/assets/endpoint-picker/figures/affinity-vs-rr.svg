@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="690" viewBox="0 0 760 690" role="img" aria-label="Schematic of prefix-cache reuse under round robin versus affinity routing. One conversation, four turns; each turn&#x27;s prompt is the previous blocks plus one new block. Under round robin the turns land on pods A, B, C, A, so the receiving pod rarely holds the prefix and 9 of 10 blocks are prefilled. Under affinity every turn lands on pod A, which already holds the prefix, so only the 4 new blocks are prefilled." font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<title>Schematic of prefix-cache reuse under round robin versus affinity routing. One conversation, four turns; each turn&#x27;s prompt is the previous blocks plus one new block. Under round robin the turns land on pods A, B, C, A, so the receiving pod rarely holds the prefix and 9 of 10 blocks are prefilled. Under affinity every turn lands on pod A, which already holds the prefix, so only the 4 new blocks are prefilled.</title><rect width="760" height="690" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="600" fill="#0b0b0b">Where a turn lands decides how much of its prompt is recomputed</text>
+<text x="24" y="47" font-size="12" fill="#52514e">One conversation, four turns. Each turn resends the whole conversation: the earlier blocks plus one new block.</text>
+<text x="24" y="63" font-size="12" fill="#52514e">Schematic with one KV block per turn; the measured figures use 16-token blocks and 15 turns.</text>
+<rect x="24" y="79" width="14" height="14" rx="2" fill="#2a78d6"/><text x="44" y="91" font-size="12" fill="#0b0b0b">block reused from this pod's KV cache</text>
+<rect x="312" y="79" width="14" height="14" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/><text x="332" y="91" font-size="12" fill="#0b0b0b">block prefilled (computed again)</text>
+<text x="24" y="122" font-size="13" font-weight="600" fill="#0b0b0b">Round robin: turns rotate across pods (A, B, C, A)</text>
+<rect x="330" y="132" width="120" height="184" rx="4" fill="#f1f0ec"/>
+<text x="390" y="146" font-size="12" font-weight="600" fill="#52514e" text-anchor="middle">Pod A</text>
+<rect x="470" y="132" width="120" height="184" rx="4" fill="#f1f0ec"/>
+<text x="530" y="146" font-size="12" font-weight="600" fill="#52514e" text-anchor="middle">Pod B</text>
+<rect x="610" y="132" width="120" height="184" rx="4" fill="#f1f0ec"/>
+<text x="670" y="146" font-size="12" font-weight="600" fill="#52514e" text-anchor="middle">Pod C</text>
+<text x="24" y="166" font-size="12" fill="#0b0b0b">Turn 1</text>
+<text x="76" y="166" font-size="12" fill="#52514e">prompt = block 1</text>
+<line x1="210" y1="162" x2="324" y2="162" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M324,162 L317,158 L317,166 Z" fill="#c9c8c3"/>
+<text x="270" y="157" font-size="11" fill="#52514e" text-anchor="middle">to Pod A</text>
+<rect x="341" y="153" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="442" y="166" font-size="11" fill="#52514e" text-anchor="end">1 new</text>
+<text x="24" y="210" font-size="12" fill="#0b0b0b">Turn 2</text>
+<text x="76" y="210" font-size="12" fill="#52514e">prompt = blocks 1–2</text>
+<line x1="210" y1="206" x2="464" y2="206" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M464,206 L457,202 L457,210 Z" fill="#c9c8c3"/>
+<text x="340" y="201" font-size="11" fill="#52514e" text-anchor="middle">to Pod B</text>
+<rect x="481" y="197" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<rect x="498" y="197" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="582" y="210" font-size="11" fill="#52514e" text-anchor="end">2 new</text>
+<text x="24" y="254" font-size="12" fill="#0b0b0b">Turn 3</text>
+<text x="76" y="254" font-size="12" fill="#52514e">prompt = blocks 1–3</text>
+<line x1="210" y1="250" x2="604" y2="250" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M604,250 L597,246 L597,254 Z" fill="#c9c8c3"/>
+<text x="410" y="245" font-size="11" fill="#52514e" text-anchor="middle">to Pod C</text>
+<rect x="621" y="241" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<rect x="638" y="241" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<rect x="655" y="241" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="722" y="254" font-size="11" fill="#52514e" text-anchor="end">3 new</text>
+<text x="24" y="298" font-size="12" fill="#0b0b0b">Turn 4</text>
+<text x="76" y="298" font-size="12" fill="#52514e">prompt = blocks 1–4</text>
+<line x1="210" y1="294" x2="324" y2="294" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M324,294 L317,290 L317,298 Z" fill="#c9c8c3"/>
+<text x="270" y="289" font-size="11" fill="#52514e" text-anchor="middle">to Pod A</text>
+<rect x="340" y="284" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="358" y="285" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<rect x="375" y="285" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<rect x="392" y="285" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="442" y="298" font-size="11" fill="#52514e" text-anchor="end">3 new</text>
+<line x1="24" y1="334" x2="736" y2="334" stroke="#e6e5e1" stroke-width="1"/>
+<text x="24" y="352" font-size="12" font-weight="600" fill="#0b0b0b">Prefilled over four turns: 9 of 10 blocks</text>
+<text x="24" y="369" font-size="12" fill="#52514e">Pods B and C receive the conversation cold; pod A holds only block 1 when turn 4 returns.</text>
+<text x="24" y="385" font-size="12" fill="#52514e">Measured on 15-turn conversations: 61% reuse, warm TTFT p50 2.7 s.</text>
+<text x="24" y="408" font-size="13" font-weight="600" fill="#0b0b0b">Affinity (EPP or consistent hash): every turn lands on pod A</text>
+<rect x="330" y="418" width="120" height="184" rx="4" fill="#f1f0ec"/>
+<text x="390" y="432" font-size="12" font-weight="600" fill="#52514e" text-anchor="middle">Pod A</text>
+<rect x="470" y="418" width="120" height="184" rx="4" fill="#f1f0ec"/>
+<text x="530" y="432" font-size="12" font-weight="600" fill="#52514e" text-anchor="middle">Pod B</text>
+<rect x="610" y="418" width="120" height="184" rx="4" fill="#f1f0ec"/>
+<text x="670" y="432" font-size="12" font-weight="600" fill="#52514e" text-anchor="middle">Pod C</text>
+<text x="24" y="452" font-size="12" fill="#0b0b0b">Turn 1</text>
+<text x="76" y="452" font-size="12" fill="#52514e">prompt = block 1</text>
+<line x1="210" y1="448" x2="324" y2="448" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M324,448 L317,444 L317,452 Z" fill="#c9c8c3"/>
+<text x="270" y="443" font-size="11" fill="#52514e" text-anchor="middle">to Pod A</text>
+<rect x="341" y="439" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="442" y="452" font-size="11" fill="#52514e" text-anchor="end">1 new</text>
+<text x="24" y="496" font-size="12" fill="#0b0b0b">Turn 2</text>
+<text x="76" y="496" font-size="12" fill="#52514e">prompt = blocks 1–2</text>
+<line x1="210" y1="492" x2="324" y2="492" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M324,492 L317,488 L317,496 Z" fill="#c9c8c3"/>
+<text x="270" y="487" font-size="11" fill="#52514e" text-anchor="middle">to Pod A</text>
+<rect x="340" y="482" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="358" y="483" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="442" y="496" font-size="11" fill="#52514e" text-anchor="end">1 new</text>
+<text x="24" y="540" font-size="12" fill="#0b0b0b">Turn 3</text>
+<text x="76" y="540" font-size="12" fill="#52514e">prompt = blocks 1–3</text>
+<line x1="210" y1="536" x2="324" y2="536" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M324,536 L317,532 L317,540 Z" fill="#c9c8c3"/>
+<text x="270" y="531" font-size="11" fill="#52514e" text-anchor="middle">to Pod A</text>
+<rect x="340" y="526" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="357" y="526" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="375" y="527" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="442" y="540" font-size="11" fill="#52514e" text-anchor="end">1 new</text>
+<text x="24" y="584" font-size="12" fill="#0b0b0b">Turn 4</text>
+<text x="76" y="584" font-size="12" fill="#52514e">prompt = blocks 1–4</text>
+<line x1="210" y1="580" x2="324" y2="580" stroke="#c9c8c3" stroke-width="1.5"/>
+<path d="M324,580 L317,576 L317,584 Z" fill="#c9c8c3"/>
+<text x="270" y="575" font-size="11" fill="#52514e" text-anchor="middle">to Pod A</text>
+<rect x="340" y="570" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="357" y="570" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="374" y="570" width="14" height="20" rx="2" fill="#2a78d6"/>
+<rect x="392" y="571" width="12" height="18" rx="2" fill="none" stroke="#eb6834" stroke-width="2"/>
+<text x="442" y="584" font-size="11" fill="#52514e" text-anchor="end">1 new</text>
+<line x1="24" y1="620" x2="736" y2="620" stroke="#e6e5e1" stroke-width="1"/>
+<text x="24" y="638" font-size="12" font-weight="600" fill="#0b0b0b">Prefilled over four turns: 4 of 10 blocks</text>
+<text x="24" y="655" font-size="12" fill="#52514e">Only the new block of each turn is prefilled; the rest is read from the cache.</text>
+<text x="24" y="671" font-size="12" fill="#52514e">Measured on 15-turn conversations: 93% reuse, warm TTFT p50 0.23 s.</text>
+</svg>

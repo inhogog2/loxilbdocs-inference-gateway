@@ -1,0 +1,74 @@
+# loxilb-igw on the control-plane node(s): hostNetwork so the node IP is the VIP, REST API on :11111,
+# /etc/loxilb persisted on the host so rules survive a pod restart.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: loxilb-lb
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: loxilb-igw
+  template:
+    metadata:
+      name: loxilb-lb
+      labels:
+        app: loxilb-igw
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: Exists
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: Exists
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "node-role.kubernetes.io/control-plane"
+                operator: Exists
+            - matchExpressions:
+              - key: "node-role.kubernetes.io/master"
+                operator: Exists
+      volumes:
+      - name: hllb
+        hostPath:
+          path: /opt/loxilb/config
+          type: DirectoryOrCreate
+      containers:
+      - name: loxilb-igw
+        image: "ghcr.io/loxilb-io/loxilb-inference-gateway:latest"   # pin a release tag in production
+        imagePullPolicy: Always
+        command:
+        - /root/loxilb-io/loxilb/loxilb
+        args:
+        - --egr-hooks
+        - --blacklist=cni[0-9a-z]|veth.|flannel.|cali.|tunl.|vxlan[.]calico   # CNI interfaces the gateway must not attach to
+        volumeMounts:
+        - name: hllb
+          mountPath: /etc/loxilb
+        ports:
+        - containerPort: 11111
+        - containerPort: 179
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loxilb-lb-service
+  namespace: kube-system
+spec:
+  clusterIP: None
+  selector:
+    app: loxilb-igw
+  ports:
+  - name: loxilb-igw
+    port: 11111
+    targetPort: 11111
+    protocol: TCP

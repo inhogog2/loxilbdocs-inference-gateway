@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-labelledby="chart-title" aria-label="Line chart of throughput in requests per second versus concurrency (1 to 64 streams) for EPP, loxilb-igw CHWBL and loxilb-igw RR. EPP and CHWBL scale to about 17 to 18 requests per second at 64 streams; RR peaks at 4.8 at 16 streams and falls to 3.8." font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<title id="chart-title">Line chart of throughput in requests per second versus concurrency (1 to 64 streams) for EPP, loxilb-igw CHWBL and loxilb-igw RR. EPP and CHWBL scale to about 17 to 18 requests per second at 64 streams; RR peaks at 4.8 at 16 streams and falls to 3.8.</title>
+<rect width="760" height="420" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="600" fill="#0b0b0b">Throughput vs. concurrency</text>
+<text x="24" y="47" font-size="12" fill="#52514e">Multi-turn workload (40 conversations x 15 turns), 3 vLLM pods, Qwen3-32B-FP8.</text>
+<text x="24" y="63" font-size="12" fill="#52514e">Requests per second, 40 s per level.</text>
+<line x1="60" y1="84" x2="78" y2="84" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="69" cy="84" r="3.5" fill="#2a78d6"/>
+<text x="84" y="88" font-size="12" fill="#0b0b0b">EPP</text>
+<line x1="127" y1="84" x2="145" y2="84" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<circle cx="136" cy="84" r="3.5" fill="#eb6834"/>
+<text x="151" y="88" font-size="12" fill="#0b0b0b">loxilb-igw CHWBL</text>
+<line x1="285" y1="84" x2="303" y2="84" stroke="#1baf7a" stroke-width="2" stroke-linecap="round"/>
+<circle cx="294" cy="84" r="3.5" fill="#1baf7a"/>
+<text x="309" y="88" font-size="12" fill="#0b0b0b">loxilb-igw RR</text>
+<text x="52" y="356.0" font-size="12" fill="#52514e" text-anchor="end">0</text>
+<line x1="60" y1="302.8" x2="660" y2="302.8" stroke="#e6e5e1" stroke-width="1"/>
+<text x="52" y="306.8" font-size="12" fill="#52514e" text-anchor="end">4</text>
+<line x1="60" y1="253.6" x2="660" y2="253.6" stroke="#e6e5e1" stroke-width="1"/>
+<text x="52" y="257.6" font-size="12" fill="#52514e" text-anchor="end">8</text>
+<line x1="60" y1="204.4" x2="660" y2="204.4" stroke="#e6e5e1" stroke-width="1"/>
+<text x="52" y="208.4" font-size="12" fill="#52514e" text-anchor="end">12</text>
+<line x1="60" y1="155.2" x2="660" y2="155.2" stroke="#e6e5e1" stroke-width="1"/>
+<text x="52" y="159.2" font-size="12" fill="#52514e" text-anchor="end">16</text>
+<line x1="60" y1="106.0" x2="660" y2="106.0" stroke="#e6e5e1" stroke-width="1"/>
+<text x="52" y="110.0" font-size="12" fill="#52514e" text-anchor="end">20</text>
+<line x1="60" y1="352" x2="660" y2="352" stroke="#c9c8c3" stroke-width="1"/>
+<text x="18" y="229.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 18 229.0)">Requests per second</text>
+<text x="60.0" y="370" font-size="12" fill="#52514e" text-anchor="middle">1</text>
+<text x="180.0" y="370" font-size="12" fill="#52514e" text-anchor="middle">4</text>
+<text x="300.0" y="370" font-size="12" fill="#52514e" text-anchor="middle">8</text>
+<text x="420.0" y="370" font-size="12" fill="#52514e" text-anchor="middle">16</text>
+<text x="540.0" y="370" font-size="12" fill="#52514e" text-anchor="middle">32</text>
+<text x="660.0" y="370" font-size="12" fill="#52514e" text-anchor="middle">64</text>
+<text x="360.0" y="394" font-size="12" fill="#52514e" text-anchor="middle">Concurrency (streams)</text>
+<path d="M60.0,339.7 L180.0,308.9 L300.0,277.0 L420.0,227.8 L540.0,189.6 L660.0,142.9" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60.0,339.7 L180.0,308.9 L300.0,283.1 L420.0,245.0 L540.0,204.4 L660.0,134.3" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60.0,342.2 L180.0,318.8 L300.0,306.5 L420.0,293.0 L540.0,306.5 L660.0,305.3" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="60.0" cy="339.7" r="6.5" fill="#fcfcfb"/>
+<circle cx="60.0" cy="339.7" r="4.5" fill="#2a78d6"/>
+<circle cx="180.0" cy="308.9" r="6.5" fill="#fcfcfb"/>
+<circle cx="180.0" cy="308.9" r="4.5" fill="#2a78d6"/>
+<circle cx="300.0" cy="277.0" r="6.5" fill="#fcfcfb"/>
+<circle cx="300.0" cy="277.0" r="4.5" fill="#2a78d6"/>
+<circle cx="420.0" cy="227.8" r="6.5" fill="#fcfcfb"/>
+<circle cx="420.0" cy="227.8" r="4.5" fill="#2a78d6"/>
+<circle cx="540.0" cy="189.6" r="6.5" fill="#fcfcfb"/>
+<circle cx="540.0" cy="189.6" r="4.5" fill="#2a78d6"/>
+<circle cx="660.0" cy="142.9" r="6.5" fill="#fcfcfb"/>
+<circle cx="660.0" cy="142.9" r="4.5" fill="#2a78d6"/>
+<circle cx="60.0" cy="339.7" r="6.5" fill="#fcfcfb"/>
+<circle cx="60.0" cy="339.7" r="4.5" fill="#eb6834"/>
+<circle cx="180.0" cy="308.9" r="6.5" fill="#fcfcfb"/>
+<circle cx="180.0" cy="308.9" r="4.5" fill="#eb6834"/>
+<circle cx="300.0" cy="283.1" r="6.5" fill="#fcfcfb"/>
+<circle cx="300.0" cy="283.1" r="4.5" fill="#eb6834"/>
+<circle cx="420.0" cy="245.0" r="6.5" fill="#fcfcfb"/>
+<circle cx="420.0" cy="245.0" r="4.5" fill="#eb6834"/>
+<circle cx="540.0" cy="204.4" r="6.5" fill="#fcfcfb"/>
+<circle cx="540.0" cy="204.4" r="4.5" fill="#eb6834"/>
+<circle cx="660.0" cy="134.3" r="6.5" fill="#fcfcfb"/>
+<circle cx="660.0" cy="134.3" r="4.5" fill="#eb6834"/>
+<circle cx="60.0" cy="342.2" r="6.5" fill="#fcfcfb"/>
+<circle cx="60.0" cy="342.2" r="4.5" fill="#1baf7a"/>
+<circle cx="180.0" cy="318.8" r="6.5" fill="#fcfcfb"/>
+<circle cx="180.0" cy="318.8" r="4.5" fill="#1baf7a"/>
+<circle cx="300.0" cy="306.5" r="6.5" fill="#fcfcfb"/>
+<circle cx="300.0" cy="306.5" r="4.5" fill="#1baf7a"/>
+<circle cx="420.0" cy="293.0" r="6.5" fill="#fcfcfb"/>
+<circle cx="420.0" cy="293.0" r="4.5" fill="#1baf7a"/>
+<circle cx="540.0" cy="306.5" r="6.5" fill="#fcfcfb"/>
+<circle cx="540.0" cy="306.5" r="4.5" fill="#1baf7a"/>
+<circle cx="660.0" cy="305.3" r="6.5" fill="#fcfcfb"/>
+<circle cx="660.0" cy="305.3" r="4.5" fill="#1baf7a"/>
+<text x="672.0" y="155.9" font-size="12" fill="#0b0b0b">17.0</text>
+<text x="672.0" y="129.3" font-size="12" fill="#0b0b0b">17.7</text>
+<text x="672.0" y="309.3" font-size="12" fill="#0b0b0b">3.8</text>
+</svg>

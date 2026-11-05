@@ -1,0 +1,108 @@
+# Three vLLM replicas, one GPU each, one per node. The label llm-d.ai/role=aggregated is what the
+# InferencePool (30-inferencepool.yaml) and rule.sh select on.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pd-disaggregation-nvidia-gpu-vllm-aggregated
+  namespace: llm-d-pd-disaggregation
+  labels:
+    llm-d.ai/guide: pd-disaggregation
+    llm-d.ai/role: aggregated
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      llm-d.ai/role: aggregated
+  template:
+    metadata:
+      labels:
+        llm-d.ai/engine-type: vllm
+        llm-d.ai/guide: pd-disaggregation
+        llm-d.ai/inference-serving: "true"
+        llm-d.ai/model: Qwen3-32B-FP8
+        llm-d.ai/role: aggregated
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                llm-d.ai/role: aggregated
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - name: modelserver
+        image: docker.io/vllm/vllm-openai:v0.30.0
+        imagePullPolicy: IfNotPresent
+        command: ["vllm", "serve"]
+        args:
+        - Qwen/Qwen3-32B-FP8
+        - --port=8000
+        - --disable-access-log-for-endpoints=/health,/metrics,/v1/models
+        - --tensor-parallel-size=1
+        - --block-size=16                           # the EPP's prefix-cache model uses 16-token blocks
+        - --prefix-caching-hash-algo=sha256_cbor
+        - --kv-events-config
+        - '{"enable_kv_cache_events":true,"publisher":"zmq","endpoint":"tcp://*:5557"}'
+        env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: llm-d-hf-token
+              key: HF_TOKEN
+              optional: true                        # Qwen3-32B-FP8 is public; set the secret for gated models
+        - name: PYTHONHASHSEED
+          value: "0"
+        - name: VLLM_KV_EVENTS_USE_INT_BLOCK_HASHES
+          value: "1"
+        - name: VLLM_HTTP_TIMEOUT_KEEP_ALIVE
+          value: "120"
+        ports:
+        - name: modelserver
+          containerPort: 8000
+          protocol: TCP
+        - name: kv-events
+          containerPort: 5557
+          protocol: TCP
+        startupProbe:                               # weight download + compile on first start
+          httpGet:
+            path: /v1/models
+            port: modelserver
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 120
+        readinessProbe:
+          httpGet:
+            path: /v1/models
+            port: modelserver
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: modelserver
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: "4"
+            memory: 32Gi
+            nvidia.com/gpu: "1"
+          limits:
+            cpu: "8"
+            memory: 64Gi
+            nvidia.com/gpu: "1"
+        volumeMounts:
+        - name: shm
+          mountPath: /dev/shm
+        - name: torch-compile-cache
+          mountPath: /.cache
+      volumes:
+      - name: shm
+        emptyDir:
+          medium: Memory
+          sizeLimit: 16Gi
+      - name: torch-compile-cache
+        emptyDir: {}

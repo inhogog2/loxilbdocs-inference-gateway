@@ -1,0 +1,208 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+    meta.helm.sh/release-name: pd-disaggregation
+    meta.helm.sh/release-namespace: llm-d-pd-disaggregation
+  creationTimestamp: "2026-10-13T02:03:44Z"
+  generation: 156
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pd-disaggregation-epp
+    app.kubernetes.io/version: v0
+    llm-d.ai/igw-mode: llm-d-router-gateway
+  name: pd-disaggregation-epp
+  namespace: llm-d-pd-disaggregation
+  resourceVersion: "551261"
+  uid: de431eb9-d3bd-4f59-86ce-a0b283dd33d3
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      llm-d-router-gateway: pd-disaggregation-epp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        checksum/config: aa344ebf0d81ed0338e766f713060d6cfac3676bd4aaca20d8361b52e267a163
+        kubectl.kubernetes.io/restartedAt: "2026-10-14T13:32:41+09:00"
+      labels:
+        llm-d-router-gateway: pd-disaggregation-epp
+        llm-d.ai/igw-mode: llm-d-router-gateway
+    spec:
+      containers:
+      - args:
+        - --service-node
+        - envoy-sidecar
+        - --log-level
+        - warn
+        - --concurrency
+        - "8"
+        - --drain-strategy
+        - immediate
+        - --drain-time-s
+        - "60"
+        - -c
+        - /etc/envoy/envoy.yaml
+        command:
+        - envoy
+        env:
+        - name: NS_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: docker.io/envoyproxy/envoy:distroless-v1.33.2
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            sleep:
+              seconds: 5
+        name: envoy-proxy
+        ports:
+        - containerPort: 8081
+          name: http-8081
+          protocol: TCP
+        - containerPort: 19001
+          name: metrics-19001
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /ready
+            port: 19001
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            cpu: "4"
+            memory: 8Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/envoy
+          name: config
+          readOnly: true
+      - args:
+        - --pool-name
+        - pd-disaggregation
+        - --pool-namespace
+        - llm-d-pd-disaggregation
+        - --pool-group
+        - inference.networking.k8s.io
+        - --zap-encoder
+        - json
+        - --config-file
+        - /config/pd-config.yaml
+        - --grpc-health-port
+        - "9003"
+        - --v=2
+        - --tracing=false
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: ghcr.io/llm-d/llm-d-router-endpoint-picker:main
+        imagePullPolicy: Always
+        lifecycle:
+          preStop:
+            sleep:
+              seconds: 5
+        livenessProbe:
+          failureThreshold: 3
+          grpc:
+            port: 9003
+            service: liveness
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: epp
+        ports:
+        - containerPort: 9002
+          name: grpc
+          protocol: TCP
+        - containerPort: 9003
+          name: grpc-health
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          grpc:
+            port: 9003
+            service: readiness
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 16Gi
+          requests:
+            cpu: "4"
+            memory: 8Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config
+          name: plugins-config-volume
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: pd-disaggregation-epp
+      serviceAccountName: pd-disaggregation-epp
+      terminationGracePeriodSeconds: 130
+      volumes:
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: envoy.yaml
+            path: envoy.yaml
+          name: envoy
+        name: config
+      - configMap:
+          defaultMode: 420
+          name: pd-disaggregation-epp
+        name: plugins-config-volume
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2026-10-13T02:03:44Z"
+    lastUpdateTime: "2026-10-14T04:32:51Z"
+    message: ReplicaSet "pd-disaggregation-epp-9d5ff6c55" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2026-10-15T01:42:01Z"
+    lastUpdateTime: "2026-10-15T01:42:01Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 156
+  readyReplicas: 1
+  replicas: 1
+  terminatingReplicas: 0
+  updatedReplicas: 1

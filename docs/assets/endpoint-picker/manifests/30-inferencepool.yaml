@@ -1,0 +1,19 @@
+# The EPP's view of the pool (selector, targetPorts). endpointPickerRef is read by kube-loxilb
+# (guide section 4.2) and becomes the rule's eppEndpoint / eppFailureMode; with a rule created
+# directly (section 4.1) loxilb-igw takes both from the rule and ignores it.
+apiVersion: inference.networking.k8s.io/v1
+kind: InferencePool
+metadata:
+  name: pd-disaggregation
+  namespace: llm-d-pd-disaggregation
+spec:
+  selector:
+    matchLabels:
+      llm-d.ai/guide: pd-disaggregation
+  targetPorts:
+  - number: 8000
+  endpointPickerRef:
+    name: pd-disaggregation-epp
+    port:
+      number: 9002
+    failureMode: FailOpen

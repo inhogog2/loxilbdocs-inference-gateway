@@ -1,0 +1,40 @@
+GROUP:      inference.networking.k8s.io
+KIND:       InferencePool
+VERSION:    v1
+
+FIELD: spec <Object>
+
+
+DESCRIPTION:
+    Spec defines the desired state of the InferencePool.
+    
+FIELDS:
+  appProtocol	<string>
+  enum: http, kubernetes.io/h2c
+    AppProtocol describes the application protocol for all the target ports.
+    
+    If unspecified, the protocol defaults to HTTP/1.1.
+    
+    Supported values include:
+    * "http": HTTP/1.1. This is the default.
+    * "kubernetes.io/h2c": HTTP/2 over cleartext.
+
+  endpointPickerRef	<Object>
+    EndpointPickerRef is a reference to the Endpoint Picker extension and its
+    associated configuration.
+
+  selector	<Object> -required-
+    Selector determines which Pods are members of this inference pool.
+    It matches Pods by their labels only within the same namespace;
+    cross-namespace
+    selection is not supported.
+    
+    The structure of this LabelSelector is intentionally simple to be compatible
+    with Kubernetes Service selectors, as some implementations may translate
+    this configuration into a Service resource.
+
+  targetPorts	<[]Object> -required-
+    TargetPorts defines a list of ports that are exposed by this InferencePool.
+    Every port will be treated as a distinctive endpoint by EPP,
+    addressable as a 'podIP:portNumber' combination.
+

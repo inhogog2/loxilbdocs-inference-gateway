@@ -1,0 +1,1 @@
+k8s server v1.36.4+rke2r1

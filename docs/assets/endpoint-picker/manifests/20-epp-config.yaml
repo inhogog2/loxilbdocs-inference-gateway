@@ -1,0 +1,24 @@
+# The EPP's scheduling profile. The filter runs before the scorers; the picker takes the highest sum.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pd-disaggregation-epp
+  namespace: llm-d-pd-disaggregation
+data:
+  epp-config.yaml: |
+    apiVersion: llm-d.ai/v1
+    kind: EndpointPickerConfig
+    plugins:
+    - type: approx-prefix-cache-producer
+    - type: inflight-load-producer
+    - type: prefix-cache-affinity-filter
+    - type: token-load-scorer
+    - type: active-request-scorer
+    - type: max-score-picker
+    schedulingProfiles:
+    - name: default
+      plugins:
+      - pluginRef: prefix-cache-affinity-filter
+      - pluginRef: token-load-scorer
+      - pluginRef: active-request-scorer
+      - pluginRef: max-score-picker
