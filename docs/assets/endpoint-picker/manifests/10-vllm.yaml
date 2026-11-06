@@ -41,6 +41,7 @@ spec:
         - --tensor-parallel-size=1
         - --block-size=16                           # the EPP's prefix-cache model uses 16-token blocks
         - --prefix-caching-hash-algo=sha256_cbor
+        - --enable-prompt-tokens-details           # usage.prompt_tokens_details.cached_tokens in every answer: the prefix-cache hit of that request
         - --kv-events-config
         - '{"enable_kv_cache_events":true,"publisher":"zmq","endpoint":"tcp://*:5557"}'
         env:
