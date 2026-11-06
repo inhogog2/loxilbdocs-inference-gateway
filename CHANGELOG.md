@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   observability, a reproduction harness, troubleshooting and teardown, plus the
   measurements of the three routing modes (cache reuse, TTFT, throughput,
   failure modes) with the raw results archive.
+  The vLLM manifest starts the pods with `--enable-prompt-tokens-details`, so
+  every answer's `usage` block reports the prompt tokens served from the
+  prefix cache.
 - Backend TLS Verification and Client Certificates page: certificate registry
   entries by usage (`ca`, `client`), `mtls_backend.verify_server_cert`,
   `backend_ca_cert_id`, `backend_client_cert_id`, `backend_tls_server_name`,
