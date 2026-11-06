@@ -14,17 +14,17 @@
         ],
         "claim": "jwt-policy-and-token-accounting",
         "matching_workflow_objects": {
-          ".github/workflows/ai-gateway-sanity.yml": "7cf0bc8805e3930fab236914c8860a7a0a9cee15"
+          ".github/workflows/ai-gateway-sanity.yml": "38cb834b228651d57ea6fae23a8a9767e0ae0f28"
         },
         "matching_workflows": [
           ".github/workflows/ai-gateway-sanity.yml"
         ],
-        "scenario_object_id": "94dc15cdcec466ed701603ec8656abf1f5cdaa50",
+        "scenario_object_id": "8711f0aa309a0973d2fefbaf18c29c377d4cc02f",
         "scenario_path": "cicd/ai-jwtauth",
-        "validation_object_id": "cb1f4142acb4e4e7b97b4d7b856fb53888c29702",
+        "validation_object_id": "16a733af42b4470aa05d2daab4d4e27fada66a7a",
         "validation_path": "cicd/ai-jwtauth/validation.sh",
         "workflow_membership": "wired",
-        "workflow_object_id": "7cf0bc8805e3930fab236914c8860a7a0a9cee15",
+        "workflow_object_id": "38cb834b228651d57ea6fae23a8a9767e0ae0f28",
         "workflow_path": ".github/workflows/ai-gateway-sanity.yml"
       },
       {
@@ -69,7 +69,7 @@
         ],
         "claim": "pd-and-worker-scrape-metrics",
         "matching_workflow_objects": {
-          ".github/workflows/ai-gateway-sanity.yml": "7cf0bc8805e3930fab236914c8860a7a0a9cee15"
+          ".github/workflows/ai-gateway-sanity.yml": "38cb834b228651d57ea6fae23a8a9767e0ae0f28"
         },
         "matching_workflows": [
           ".github/workflows/ai-gateway-sanity.yml"
@@ -79,7 +79,7 @@
         "validation_object_id": "af66abffc547de2ca3eb062e6e3964a610af6f56",
         "validation_path": "cicd/vllm-pd-disagg/validation.sh",
         "workflow_membership": "wired",
-        "workflow_object_id": "7cf0bc8805e3930fab236914c8860a7a0a9cee15",
+        "workflow_object_id": "38cb834b228651d57ea6fae23a8a9767e0ae0f28",
         "workflow_path": ".github/workflows/ai-gateway-sanity.yml"
       },
       {
@@ -3994,11 +3994,11 @@
       "source_path": "api/prometheus/ai_metrics.go"
     },
     "provenance": {
-      "generated_at": "2026-11-04T23:59:58+00:00",
-      "source_revision": "8c7e03e26bb049073e5d67984c942b63c2c3846b"
+      "generated_at": "2026-11-06T02:15:18+00:00",
+      "source_revision": "0cc23566c888a77c090ce41d99317002a618686b"
     },
     "schema_version": 1,
-    "sha256": "acc2dba685bcf8a48f4eaa91ee3ab42d2b08524d3e89f9d25925683b2c654041",
+    "sha256": "121e8e828468f6c91569662afa94ead0bdab5f4d61a22f5b52ae2e96ad602273",
     "source_path": "deploy/monitoring/manifest/metric-manifest.json"
   },
   "release_snapshot": {
@@ -4113,8 +4113,8 @@
     ]
   },
   "source": {
-    "commit": "b954a57582b6bb702b5bfa2606817ee77857ae5e",
-    "ebpf_submodule_commit": "b131098ebdbb573cdffb04379821f44e7106f087",
+    "commit": "72de93cd2af8e62a956083795e6d8e33bb354ff0",
+    "ebpf_submodule_commit": "201ee03d36b354a20f47603c0f9fb4a9b9f14be3",
     "release_commit": "f08b18beda587217265c9ba6419159119914795c",
     "release_tag": "v0.9.8.9-rc.1",
     "release_tag_object": "db28353e50f7031157187fdd2250d1098c97963a",
@@ -15086,6 +15086,12 @@
               "403": {
                 "$ref": "#/responses/ManagementForbidden"
               },
+              "409": {
+                "description": "Certificate ID already in use",
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              },
               "500": {
                 "description": "Internal service error",
                 "schema": {
@@ -25402,7 +25408,7 @@
           "type": "apiKey"
         }
       },
-      "sha256": "e1b2dd48f9d0b7284a82992f0f38ac17b25aa6e55c1b4b155b4c8f35f9e36caf",
+      "sha256": "37b0ae9666dd9607628507e1000bdceb28b22813dc6ff538d3507d6b7bb3e70a",
       "source_path": "api/swagger.yml"
     },
     {
